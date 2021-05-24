@@ -6,10 +6,16 @@
 </head>
 <body>
 <div align="center">
-    <p><input name="login" placeholder="Login/Email"></p>
-    <p><input name="pass" type="password" placeholder="Password"></p>
-    <form action="hello">
-        <button type="submit">Join</button>
+    <form action="login" method="post">
+        <label>Введите ваш email:</label></br>
+        <input name="email" type="email" placeholder="Email" required></br>
+        <label>Введите пароль:</label></br>
+        <input name="password" type="password" placeholder="Password" required></br>
+        <button type="submit">Вход</button>
+    </form>
+    <form action="register.jsp">
+        <label>Регистрация</label></br>
+        <input type="submit" value="Register"/>
     </form>
 </div>
 </body>
