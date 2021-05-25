@@ -6,6 +6,7 @@
 </head>
 <body>
 <div align="center">
+    <p style="color:red">Email or password is incorrect!</p>
     <form action="login" method="post">
         <label>Введите ваш email:</label></br>
         <input name="email" type="email" placeholder="Email" required></br>
