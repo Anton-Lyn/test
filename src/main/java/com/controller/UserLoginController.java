@@ -19,7 +19,12 @@ public class UserLoginController extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) {
         String email = req.getParameter("email");
         String password = req.getParameter("password");
-        boolean resultCheckLogin = userService.checkLogin(email, password);
+        String hashPassword;
+        UserServiceImpl userService1 = new UserServiceImpl();
+
+        hashPassword = userService1.haschedPassword(password);
+
+        boolean resultCheckLogin = userService.checkLogin(email, hashPassword);
         try {
             if (resultCheckLogin) {
                 resp.sendRedirect("userPage.jsp");

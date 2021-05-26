@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>JSP - Hello World</title>
+    <title>Global Testing Program</title>
 </head>
 <body>
 <div align="center">

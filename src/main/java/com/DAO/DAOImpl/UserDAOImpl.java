@@ -71,6 +71,7 @@ public class UserDAOImpl implements UserDAO {
                 log.info("Successfully send request to DB");
             } catch (SQLException exception) {
                 log.error(exception.getLocalizedMessage());
+                connection.rollback();
             }
         } catch (SQLException exception) {
             log.error(exception.getLocalizedMessage());
@@ -81,7 +82,6 @@ public class UserDAOImpl implements UserDAO {
     public String getData() {
         SimpleDateFormat formater = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         Date date = new Date();
-        String valueData = formater.format(date);
-        return valueData;
+        return formater.format(date);
     }
 }

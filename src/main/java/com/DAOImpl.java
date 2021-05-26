@@ -2,6 +2,8 @@ package com;
 
 import com.connection.ConnectionPool;
 
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.sql.*;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -52,7 +54,33 @@ public class DAOImpl {
         }
     }
 
-    public static void main(String[] args) {
+    public static String hash(String input, String algorithm) throws NoSuchAlgorithmException {
+        MessageDigest digest = MessageDigest.getInstance(algorithm);
+//        digest.update(input.getBytes());
+        byte[] hash = digest.digest(input.getBytes());
+        int[] hash2 = new int[hash.length];
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < hash2.length; i++) {
+            String hex = Integer.toHexString(0xFF & hash[i]);
+            if (hex.length() == 1) {
+                sb.append('0');
+            }
+            sb.append(hex);
+        }
+        return sb.toString().toUpperCase();
+    }
+
+    public static String MD5(String password) throws NoSuchAlgorithmException {
+        MessageDigest messageDigest = MessageDigest.getInstance("MD5");
+        byte[] bytes = messageDigest.digest(password.getBytes());
+        StringBuilder stringBuilder = new StringBuilder();
+        for (byte b:bytes) {
+            stringBuilder.append(String.format("%02X",b));
+        }
+        return String.valueOf(stringBuilder);
+    }
+
+    public static void main(String[] args) throws NoSuchAlgorithmException {
 //        DAOImpl q = new DAOImpl();
 //        try(Connection connection = ConnectionPool.getConnection();){
 //            q.create(connection);
@@ -67,8 +95,22 @@ public class DAOImpl {
 //        String dataCheck = formater.format(date);
 //        System.out.println(dataCheck);
 
-        Integer language = Integer.valueOf("1");
-        System.out.println(language);
+//        Integer language = Integer.valueOf("1");
+//        System.out.println(language);
+
+        System.out.println(hash("anton123", "MD5"));
+//        System.out.println("----------------------------------");
+//        System.out.println(MD5("anton123"));
+//        System.out.println("----------------------------------");
+//        System.out.println(hash("anton123", "SHA-256"));
+
+
+//912EC803B2CE49E4A541068D495AB570
+//                ----------------------------------
+//912EC803B2CE49E4A541068D495AB570
+//                ----------------------------------
+//F0E4C2F76C58916EC258F246851BEA091D14D4247A2FC3E18694461B1816E13B
+
 
     }
 

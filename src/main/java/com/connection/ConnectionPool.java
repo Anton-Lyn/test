@@ -9,14 +9,14 @@ import java.sql.SQLException;
 
 public class ConnectionPool {
 
-    private static HikariConfig config = new HikariConfig();
-    private static HikariDataSource ds;
+    private static final HikariConfig config = new HikariConfig();
+    private static final HikariDataSource ds;
 
     static {
         config.setJdbcUrl("jdbc:mysql://localhost:3306/first_base");
         config.setUsername("root");
         config.setPassword("password");
-        config.setDriverClassName("com.mysql.jdbc.Driver");
+        config.setDriverClassName("com.mysql.cj.jdbc.Driver");
         config.addDataSourceProperty("cachePrepStmts", "true");
         config.addDataSourceProperty("prepStmtCacheSize", "250");
         config.addDataSourceProperty("prepStmtCacheSqlLimit", "2048");

@@ -29,17 +29,29 @@ public class UserRegistController extends HttpServlet {
         String password = req.getParameter("password");
         Integer language = Integer.valueOf(req.getParameter("lang"));
 
-        User user = new User();
+        boolean checkValidEmail = userService.validEmail(login);
+        if (checkValidEmail) {
 
-        user.setName(name);
-        user.setLogin(login);
-        user.setPassword(password);
-        user.setPreferredLang(language);
-        userService.registerNewUser(user);
-        try {
-            resp.sendRedirect("index.jsp");
-        } catch (IOException exception) {
-            log.error(exception.getLocalizedMessage());
+            User user = new User();
+
+            user.setName(name);
+            user.setLogin(login);
+            user.setPassword(password);
+            user.setPreferredLang(language);
+            userService.registerNewUser(user);
+            try {
+                resp.sendRedirect("index.jsp");
+            } catch (IOException exception) {
+                log.error(exception.getLocalizedMessage());
+            }
+        }else {
+            try {
+                resp.sendRedirect("registerPageError.jsp");
+            } catch (IOException exception) {
+                log.error(exception.getLocalizedMessage());
+            }
         }
+
+
     }
 }
