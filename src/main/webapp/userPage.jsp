@@ -4,8 +4,14 @@
     <title>User Page</title>
 </head>
 <body>
-<h1>Success</h1>
 <div>
+    <h2>You Login by: ${name}</h2>
+    <p> Your role: ${role} </p>
 </div>
+
+<form method="get" action="LogoutUser">
+    <button type="submit">Logout</button>
+</form>
+
 </body>
 </html>

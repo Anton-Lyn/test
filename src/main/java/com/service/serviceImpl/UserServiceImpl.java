@@ -14,20 +14,15 @@ import java.util.Optional;
 public class UserServiceImpl implements UserService {
 
     @Override
-    public boolean checkLogin(String email, String password) {
+    public User checkLogin(String email, String password) {
         log.info("Create user for check login and password in database");
         Optional<User> user = UserDAOImpl.getInstance().findUserByLogin(email);
         log.info("Successfully create user. Start check password user");
+        User user1 = null;
         if (user.isPresent()) {
-            User user1 = user.get();
-            String s = user1.getPassword();
-            if (s == null) {
-                return false;
-            }
-            log.info("Successfully check user in database");
-            return s.equals(password);
+            user1 = user.get();
         }
-        return false;
+        return user1;
     }
 
     @Override
