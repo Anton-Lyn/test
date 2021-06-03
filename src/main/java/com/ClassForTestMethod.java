@@ -9,7 +9,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public class DAOImpl {
+public class ClassForTestMethod {
 
     public void create(Connection connection) {
 

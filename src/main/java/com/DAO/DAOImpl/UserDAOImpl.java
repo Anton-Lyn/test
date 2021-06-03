@@ -33,7 +33,7 @@ public class UserDAOImpl implements UserDAO {
         User user = new User();
         String s = "SELECT * FROM User WHERE login = ?";
         try (Connection connection = ConnectionPool.getConnection()) {
-            log.info("Try to connection to DB");
+            log.info("Try to connection to DB to find User");
             try (PreparedStatement statement = connection.prepareStatement(s)) {
                 log.info("Successfully connection to DB. Try to send request to DB to find user");
                 statement.setString(1, loginUser);

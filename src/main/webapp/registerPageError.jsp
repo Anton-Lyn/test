@@ -18,7 +18,7 @@
     <option value="1">Русский</option>
     <option value="2">English</option>
   </select>
-  <button type="submit">Вход</button>
+  <button type="submit">Зарегистрироваться</button>
 </form>
 </body>
 </html>

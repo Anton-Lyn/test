@@ -6,14 +6,11 @@ import lombok.experimental.FieldDefaults;
 
 @Data
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class User {
+public class Subject {
     Integer id;
+    Integer idLang;
     String name;
-    String login;
-    String password;
-    String role;
-    Integer preferredLang;
-    Boolean blocked;
-    String createdAt;
-    String updateAT;
+    Integer complexity;
+    String created_At;
+    String update_At;
 }

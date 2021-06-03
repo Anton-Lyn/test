@@ -4,7 +4,6 @@ import com.entity.User;
 import com.service.serviceImpl.UserServiceImpl;
 import lombok.extern.slf4j.Slf4j;
 
-import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -38,14 +37,13 @@ public class UserLoginController extends HttpServlet {
         session.setAttribute("created", receivedUser.getCreatedAt());
         session.setAttribute("update", receivedUser.getUpdateAT());
 
-
         try {
             if ( receivedUser.getLogin() != null && receivedUser.getPassword().equals(hashPassword)) {
-                getServletContext().getRequestDispatcher("/userPage.jsp").forward(req, resp);
+                resp.sendRedirect("userPage.jsp");
             } else {
                 resp.sendRedirect("loginError.jsp");
             }
-        } catch (IOException | ServletException exception) {
+        } catch (IOException exception) {
             log.error(exception.getLocalizedMessage());
         }
     }
