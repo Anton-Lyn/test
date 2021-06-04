@@ -11,6 +11,6 @@ public class Subject {
     Integer idLang;
     String name;
     Integer complexity;
-    String created_At;
-    String update_At;
+    String createdData;
+    String updateData;
 }

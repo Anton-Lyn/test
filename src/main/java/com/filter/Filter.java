@@ -12,7 +12,7 @@ import java.io.IOException;
 public class Filter implements javax.servlet.Filter {
 
     @Override
-    public void init(FilterConfig filterConfig){
+    public void init(FilterConfig filterConfig) {
     }
 
     @Override
@@ -25,11 +25,15 @@ public class Filter implements javax.servlet.Filter {
         Object user = httpReq.getSession().getAttribute("name");
         String s = httpReq.getParameter("email");
 
-        if (user == null && !(uri.endsWith("index.jsp") || uri.endsWith("loginError.jsp")) && s == null){
+        if (user == null &&
+                !(uri.endsWith("index.jsp") ||
+                        uri.endsWith("loginError.jsp") ||
+                        uri.endsWith("registerPage.jsp") ||
+                        uri.endsWith("registerPageError.jsp")) &&
+                s == null) {
             log.info("Unauthorized request");
             httpRes.sendRedirect("index.jsp");
-        }
-        else {
+        } else {
             log.info("Authorized request, session: " + session);
             filterChain.doFilter(servletRequest, servletResponse);
         }

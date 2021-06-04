@@ -6,6 +6,7 @@
 <head>
     <title>User Page</title>
 </head>
+<body>
 <br>
 <div>
     <h4>You Login by: ${name}</h4>

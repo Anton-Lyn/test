@@ -25,7 +25,7 @@ public class UserRegistController extends HttpServlet {
             log.error(exception.getLocalizedMessage());
         }
         String name = req.getParameter("name");
-        String login = req.getParameter("login");
+        String login = req.getParameter("email");
         String password = req.getParameter("password");
         Integer language = Integer.valueOf(req.getParameter("lang"));
 

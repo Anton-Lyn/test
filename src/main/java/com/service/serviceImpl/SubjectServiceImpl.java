@@ -1,11 +1,14 @@
 package com.service.serviceImpl;
 
 import com.DAO.DAOImpl.SubjectDAOImpl;
+import com.entity.Subject;
 import com.service.SubjectService;
 
+import java.util.List;
+
 public class SubjectServiceImpl implements SubjectService {
-    public Object getSubjectList() {
-        SubjectDAOImpl subjectDAO = new SubjectDAOImpl();
-        return subjectDAO.getAllSubjects();
+
+    public List<Subject> getSubjectList() {
+        return SubjectDAOImpl.getInstance().getAllSubjects();
     }
 }
