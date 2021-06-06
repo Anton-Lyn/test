@@ -7,10 +7,10 @@ import lombok.experimental.FieldDefaults;
 @Data
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class Subject {
-    Integer id;
-    Integer idLang;
-    String name;
-    Integer complexity;
-    String createdData;
-    String updateData;
+    Integer idSubject;
+    Integer idLangSubject;
+    String nameSubject;
+    Integer complexitySubject;
+    String dateCreatedSubject;
+    String dateUpdateSubject;
 }

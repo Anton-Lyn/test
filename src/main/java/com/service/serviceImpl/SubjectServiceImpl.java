@@ -7,8 +7,9 @@ import com.service.SubjectService;
 import java.util.List;
 
 public class SubjectServiceImpl implements SubjectService {
+    SubjectDAOImpl subjectDAO = new SubjectDAOImpl();
 
     public List<Subject> getSubjectList() {
-        return SubjectDAOImpl.getInstance().getAllSubjects();
+        return subjectDAO.getAllSubjects();
     }
 }

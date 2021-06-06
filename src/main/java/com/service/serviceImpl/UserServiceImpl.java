@@ -31,14 +31,14 @@ public class UserServiceImpl implements UserService {
         UserDAOImpl userDAO = UserDAOImpl.getInstance();
         log.info("Successfully create user. Start add user in DB");
         UserServiceImpl userService = new UserServiceImpl();
-        String password = user.getPassword();
-        String hashPassword = userService.haschedPassword(password);
-        user.setPassword(hashPassword);
+        String password = user.getUserPassword();
+        String hashPassword = userService.hashingPassword(password);
+        user.setUserPassword(hashPassword);
         userDAO.addUser(user);
     }
 
     @Override
-    public String haschedPassword(String password) {
+    public String hashingPassword(String password) {
         log.info("Start hashed password");
         MessageDigest messageDigest = null;
         try {

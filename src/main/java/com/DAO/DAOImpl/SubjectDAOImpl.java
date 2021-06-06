@@ -12,20 +12,6 @@ import java.util.List;
 @Slf4j
 public class SubjectDAOImpl implements SubjectDAO {
 
-    private static SubjectDAOImpl subjectDAO;
-
-    private SubjectDAOImpl() {
-
-    }
-
-    public static SubjectDAOImpl getInstance() {
-        if (subjectDAO == null) {
-            subjectDAO = new SubjectDAOImpl();
-        }
-        return subjectDAO;
-    }
-
-
     @Override
     public List<Subject> getAllSubjects() {
 
@@ -39,12 +25,12 @@ public class SubjectDAOImpl implements SubjectDAO {
                 ResultSet resultSet = statement.executeQuery(sql);
                 while (resultSet.next()) {
                     Subject subject = new Subject();
-                    subject.setId(resultSet.getInt("id_subject"));
-                    subject.setIdLang(resultSet.getInt("lang_Id"));
-                    subject.setName(resultSet.getString("name_subject"));
-                    subject.setComplexity(resultSet.getInt("complexity"));
-                    subject.setCreatedData(resultSet.getString("created_At"));
-                    subject.setUpdateData(resultSet.getString("update_At"));
+                    subject.setIdSubject(resultSet.getInt("id_subject"));
+                    subject.setIdLangSubject(resultSet.getInt("lang_Id"));
+                    subject.setNameSubject(resultSet.getString("name_subject"));
+                    subject.setComplexitySubject(resultSet.getInt("complexity"));
+                    subject.setDateCreatedSubject(resultSet.getString("created_At"));
+                    subject.setDateUpdateSubject(resultSet.getString("update_At"));
                     allSubjects.add(subject);
                 }
             } catch (SQLException exception) {

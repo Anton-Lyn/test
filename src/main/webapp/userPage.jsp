@@ -21,8 +21,8 @@
     </tr>
     <c:forEach items="${sub.subjectList}" var="subject">
         <tr>
-            <td>${subject.name}</td>
-            <td>${subject.complexity}</td>
+            <td>${subject.nameSubject}</td>
+            <td>${subject.complexitySubject}</td>
             <td>Переход на тест</td>
             <td>Результат</td>
         </tr>

@@ -7,7 +7,15 @@
 </head>
 <body>
 <div class="index-page">
-    <p style="color:red">Email or password is incorrect!</p>
+    <%
+        if (session.getAttribute("login") == null) {
+            out.println("<p style=\"color:red\">Error. Your account has been found. Check the correctness of the login and password</p>");
+        } else if (session.getAttribute("status").equals(false)) {
+            out.println("<p style=\"color:red\">Error. Your account has been found. Check the correctness of the login and password</p>");
+        } else if (session.getAttribute("status").equals(true)) {
+            out.println("<p style=\"color:red\">The user is blocked. Contact your administrator to find out how to restore your account.</p>");
+        }
+    %>
     <form align="center" action="login" method="post">
         <label>Введите ваш email:</label></br>
         <input name="email" type="email" placeholder="Email" required></br>

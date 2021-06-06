@@ -23,22 +23,29 @@ public class UserLoginController extends HttpServlet {
         String password = req.getParameter("password");
         String hashPassword;
         UserServiceImpl userService1 = new UserServiceImpl();
-
-        hashPassword = userService1.haschedPassword(password);
+        hashPassword = userService1.hashingPassword(password);
 
         User receivedUser = userService.checkLogin(email, hashPassword);
 
         HttpSession session = req.getSession();
-        session.setAttribute("id", receivedUser.getId());
-        session.setAttribute("name", receivedUser.getName());
-        session.setAttribute("login", receivedUser.getLogin());
-        session.setAttribute("role", receivedUser.getRole());
-        session.setAttribute("status", receivedUser.getBlocked());
-        session.setAttribute("created", receivedUser.getCreatedAt());
-        session.setAttribute("update", receivedUser.getUpdateAT());
-
+        session.setAttribute("id", receivedUser.getUserId());
+        session.setAttribute("name", receivedUser.getUsername());
+        session.setAttribute("login", receivedUser.getLoginUser());
+        session.setAttribute("role", receivedUser.getUserRole());
+        session.setAttribute("status", receivedUser.getUserStatus());
+        session.setAttribute("dateCreatedUser", receivedUser.getDateCreatedUser());
+        session.setAttribute("dateUpdateUser", receivedUser.getDateUpdateUser());
+        System.out.println(receivedUser);
         try {
-            if ( receivedUser.getLogin() != null && receivedUser.getPassword().equals(hashPassword)) {
+            if (
+                    receivedUser.getLoginUser() != null &&
+                    receivedUser.getUserRole().equals("admin") &&
+                    receivedUser.getUserPassword().equals(hashPassword)) {
+                resp.sendRedirect("adminPage.jsp");
+            } else if (
+                    receivedUser.getLoginUser() != null &&
+                    receivedUser.getUserPassword().equals(hashPassword) &&
+                    receivedUser.getUserStatus().equals(false)) {
                 resp.sendRedirect("userPage.jsp");
             } else {
                 resp.sendRedirect("loginError.jsp");

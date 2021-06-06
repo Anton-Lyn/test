@@ -9,7 +9,7 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
 @Slf4j
-public class Filter implements javax.servlet.Filter {
+public class AuthorizationFilter implements Filter {
 
     @Override
     public void init(FilterConfig filterConfig) {

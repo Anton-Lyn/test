@@ -98,6 +98,12 @@ public class ClassForTestMethod {
 //        Integer language = Integer.valueOf("1");
 //        System.out.println(language);
 
+
+        String s = "admin";
+        if (s.equals("admin")){
+            System.out.println("adminPage");
+        } else System.out.println("erre page");
+
         System.out.println(hash("anton123", "MD5"));
 //        System.out.println("----------------------------------");
 //        System.out.println(MD5("anton123"));

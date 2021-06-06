@@ -13,7 +13,7 @@ import java.io.UnsupportedEncodingException;
 
 @Slf4j
 @WebServlet(value = "/register")
-public class UserRegistController extends HttpServlet {
+public class UserRegisterController extends HttpServlet {
 
     UserServiceImpl userService = new UserServiceImpl();
 
@@ -34,17 +34,17 @@ public class UserRegistController extends HttpServlet {
 
             User user = new User();
 
-            user.setName(name);
-            user.setLogin(login);
-            user.setPassword(password);
-            user.setPreferredLang(language);
+            user.setUsername(name);
+            user.setLoginUser(login);
+            user.setUserPassword(password);
+            user.setUserPreferredLang(language);
             userService.registerNewUser(user);
             try {
                 resp.sendRedirect("index.jsp");
             } catch (IOException exception) {
                 log.error(exception.getLocalizedMessage());
             }
-        }else {
+        } else {
             try {
                 resp.sendRedirect("registerPageError.jsp");
             } catch (IOException exception) {
