@@ -9,7 +9,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public class DAOImpl {
+public class ClassForTestMethod {
 
     public void create(Connection connection) {
 
@@ -97,6 +97,12 @@ public class DAOImpl {
 
 //        Integer language = Integer.valueOf("1");
 //        System.out.println(language);
+
+
+        String s = "admin";
+        if (s.equals("admin")){
+            System.out.println("adminPage");
+        } else System.out.println("erre page");
 
         System.out.println(hash("anton123", "MD5"));
 //        System.out.println("----------------------------------");

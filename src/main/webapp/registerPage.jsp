@@ -10,7 +10,7 @@
         <label><b>Name</b></label>
         <input type="text" placeholder="Enter Name" name="name" required></br>
         <label><b>Email</b></label>
-        <input type="text" placeholder="Enter Email" name="login" required></br>
+        <input type="text" placeholder="Enter Email" name="email" required></br>
         <label><b>Password</b></label>
         <input type="password" placeholder="Enter Password" name="password" required></br>
         <label><b>Language</b></label>
@@ -18,7 +18,7 @@
             <option value="1">Русский</option>
             <option value="2">English</option>
         </select>
-    <button type="submit">Вход</button>
+    <button type="submit">Зарегистрироваться</button>
 </form>
 </body>
 </html>

@@ -33,22 +33,21 @@ public class UserDAOImpl implements UserDAO {
         User user = new User();
         String s = "SELECT * FROM User WHERE login = ?";
         try (Connection connection = ConnectionPool.getConnection()) {
-            log.info("Try to connection to DB");
+            log.info("Connecting to a database to find a user");
             try (PreparedStatement statement = connection.prepareStatement(s)) {
-                log.info("Successfully connection to DB. Try to send request to DB to find user");
+                log.info("Successful connection to the database. Sending a query to the database");
                 statement.setString(1, loginUser);
                 ResultSet resultSet = statement.executeQuery();
                 while (resultSet.next()) {
-                    user.setId(resultSet.getInt("id_User"));
-                    user.setName(resultSet.getString("name"));
-                    user.setLogin(resultSet.getString("login"));
-                    user.setName(resultSet.getString("name"));
-                    user.setPassword(resultSet.getString("password"));
-                    user.setRole(resultSet.getString("role"));
-                    user.setPreferredLang(resultSet.getInt("preffered_Lang"));
-                    user.setBlocked(resultSet.getBoolean("blocked"));
-                    user.setCreatedAt(resultSet.getString("created_At"));
-                    user.setUpdateAT(resultSet.getString("update_At"));
+                    user.setUserId(resultSet.getInt("id_User"));
+                    user.setUsername(resultSet.getString("name"));
+                    user.setLoginUser(resultSet.getString("login"));
+                    user.setUserPassword(resultSet.getString("password"));
+                    user.setUserRole(resultSet.getString("role"));
+                    user.setUserPreferredLang(resultSet.getInt("preferred_Lang"));
+                    user.setUserStatus(resultSet.getBoolean("blocked"));
+                    user.setDateCreatedUser(resultSet.getString("created_At"));
+                    user.setDateUpdateUser(resultSet.getString("update_At"));
                 }
                 log.info("Successfully send request to DB");
             } catch (SQLException exception) {
@@ -71,11 +70,11 @@ public class UserDAOImpl implements UserDAO {
         try (Connection connection = ConnectionPool.getConnection()) {
             log.info("Successfully connection to DB. Try to send request to DB to add user");
             try (PreparedStatement statement = connection.prepareStatement(sql)) {
-                statement.setString(1, user.getName());
-                statement.setString(2, user.getLogin());
-                statement.setString(3, user.getPassword());
+                statement.setString(1, user.getUsername());
+                statement.setString(2, user.getLoginUser());
+                statement.setString(3, user.getUserPassword());
                 statement.setString(4, "user");
-                statement.setInt(5, user.getPreferredLang());
+                statement.setInt(5, user.getUserPreferredLang());
                 statement.setBoolean(6, false);
                 statement.setString(7, valueData);
                 statement.setString(8, valueData);
@@ -92,8 +91,8 @@ public class UserDAOImpl implements UserDAO {
 
     @Override
     public String getData() {
-        SimpleDateFormat formater = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         Date date = new Date();
-        return formater.format(date);
+        return simpleDateFormat.format(date);
     }
 }

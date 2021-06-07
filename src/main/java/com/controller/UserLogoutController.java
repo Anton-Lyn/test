@@ -10,15 +10,15 @@ public class UserLogoutController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         Cookie[] cookies = req.getCookies();
-        if(cookies != null){
-            for(Cookie cookie : cookies){
-                if(cookie.getName().equals("JSESSIONID")){
+        if (cookies != null) {
+            for (Cookie cookie : cookies) {
+                if (cookie.getName().equals("JSESSIONID")) {
                     break;
                 }
             }
         }
         HttpSession session = req.getSession(false);
-        if(session != null){
+        if (session != null) {
             session.invalidate();
         }
         resp.sendRedirect("index.jsp");
