@@ -22,20 +22,18 @@ public class UserLoginController extends HttpServlet {
         String email = req.getParameter("email");
         String password = req.getParameter("password");
         String hashPassword;
-        UserServiceImpl userService1 = new UserServiceImpl();
-        hashPassword = userService1.hashingPassword(password);
+        hashPassword = userService.hashingPassword(password);
 
         User receivedUser = userService.checkLogin(email, hashPassword);
 
         HttpSession session = req.getSession();
         session.setAttribute("id", receivedUser.getUserId());
-        session.setAttribute("name", receivedUser.getUsername());
+        session.setAttribute("name", receivedUser.getUserName());
         session.setAttribute("login", receivedUser.getLoginUser());
         session.setAttribute("role", receivedUser.getUserRole());
         session.setAttribute("status", receivedUser.getUserStatus());
         session.setAttribute("dateCreatedUser", receivedUser.getDateCreatedUser());
         session.setAttribute("dateUpdateUser", receivedUser.getDateUpdateUser());
-        System.out.println(receivedUser);
         try {
             if (
                     receivedUser.getLoginUser() != null &&

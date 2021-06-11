@@ -14,20 +14,24 @@
 </div>
 <table border="2">
     <tr>
-        <td>Предмет</td>
-        <td>Сложность</td>
-        <td>Действие</td>
-        <td>Результат</td>
+        <td>Subject</td>
+        <td>Complexity</td>
+        <td>Test run</td>
+        <td>Time to complete the test</td>
     </tr>
     <c:forEach items="${sub.subjectList}" var="subject">
         <tr>
             <td>${subject.nameSubject}</td>
             <td>${subject.complexitySubject}</td>
-            <td>Переход на тест</td>
-            <td>Результат</td>
+            <td><form method="get" action="userTest">
+                <button name="topic" value="${subject.idSubject}" type="submit">Пройти тест</button>
+            </form>
+            </td>
+            <td>${subject.timeTest}</td>
         </tr>
     </c:forEach>
-</table></br>
+</table>
+</br>
 <form method="get" action="LogoutUser">
     <button type="submit">Logout</button>
 </form>

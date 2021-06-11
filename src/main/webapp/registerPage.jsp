@@ -12,7 +12,7 @@
         <label><b>Email</b></label>
         <input type="text" placeholder="Enter Email" name="email" required></br>
         <label><b>Password</b></label>
-        <input type="password" placeholder="Enter Password" name="password" required></br>
+        <input type="password" placeholder="Enter Password" name="password" required minlength="8"></br>
         <label><b>Language</b></label>
         <select size="1" name="lang"></br>
             <option value="1">Русский</option>

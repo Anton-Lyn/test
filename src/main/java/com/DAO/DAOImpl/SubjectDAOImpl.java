@@ -16,13 +16,13 @@ public class SubjectDAOImpl implements SubjectDAO {
     public List<Subject> getAllSubjects() {
 
         List<Subject> allSubjects = new ArrayList<>();
-        String sql = "SELECT * FROM Subject";
+        String sqlQuery = "SELECT * FROM Subject";
 
         try (Connection connection = ConnectionPool.getConnection()) {
             log.info("Try to connection to DB to find Subject");
             try (Statement statement = connection.createStatement()) {
 
-                ResultSet resultSet = statement.executeQuery(sql);
+                ResultSet resultSet = statement.executeQuery(sqlQuery);
                 while (resultSet.next()) {
                     Subject subject = new Subject();
                     subject.setIdSubject(resultSet.getInt("id_subject"));
@@ -31,6 +31,7 @@ public class SubjectDAOImpl implements SubjectDAO {
                     subject.setComplexitySubject(resultSet.getInt("complexity"));
                     subject.setDateCreatedSubject(resultSet.getString("created_At"));
                     subject.setDateUpdateSubject(resultSet.getString("update_At"));
+                    subject.setTimeTest(resultSet.getTime("time_To_Test"));
                     allSubjects.add(subject);
                 }
             } catch (SQLException exception) {

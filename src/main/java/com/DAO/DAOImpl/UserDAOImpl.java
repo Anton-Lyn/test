@@ -29,18 +29,25 @@ public class UserDAOImpl implements UserDAO {
     }
 
     @Override
+    public String getData() {
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        Date date = new Date();
+        return simpleDateFormat.format(date);
+    }
+
+    @Override
     public Optional<User> findUserByLogin(String loginUser) {
         User user = new User();
-        String s = "SELECT * FROM User WHERE login = ?";
+        String sqlQuery = "SELECT * FROM User WHERE login = ?";
         try (Connection connection = ConnectionPool.getConnection()) {
             log.info("Connecting to a database to find a user");
-            try (PreparedStatement statement = connection.prepareStatement(s)) {
+            try (PreparedStatement statement = connection.prepareStatement(sqlQuery)) {
                 log.info("Successful connection to the database. Sending a query to the database");
                 statement.setString(1, loginUser);
                 ResultSet resultSet = statement.executeQuery();
                 while (resultSet.next()) {
                     user.setUserId(resultSet.getInt("id_User"));
-                    user.setUsername(resultSet.getString("name"));
+                    user.setUserName(resultSet.getString("name"));
                     user.setLoginUser(resultSet.getString("login"));
                     user.setUserPassword(resultSet.getString("password"));
                     user.setUserRole(resultSet.getString("role"));
@@ -65,12 +72,12 @@ public class UserDAOImpl implements UserDAO {
 
         String valueData = getData();
 
-        String sql = "INSERT INTO User VALUES (DEFAULT,?,?,?,?,?,?,?,?)";
+        String sqlQuery = "INSERT INTO User VALUES (DEFAULT,?,?,?,?,?,?,?,?)";
         log.info("Try to connection to DB");
         try (Connection connection = ConnectionPool.getConnection()) {
             log.info("Successfully connection to DB. Try to send request to DB to add user");
-            try (PreparedStatement statement = connection.prepareStatement(sql)) {
-                statement.setString(1, user.getUsername());
+            try (PreparedStatement statement = connection.prepareStatement(sqlQuery)) {
+                statement.setString(1, user.getUserName());
                 statement.setString(2, user.getLoginUser());
                 statement.setString(3, user.getUserPassword());
                 statement.setString(4, "user");
@@ -90,9 +97,49 @@ public class UserDAOImpl implements UserDAO {
     }
 
     @Override
-    public String getData() {
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        Date date = new Date();
-        return simpleDateFormat.format(date);
+    public int findUserExistence(String loginUser) {
+        int idUser = 0;
+        String sqlQuery = "SELECT id_User FROM User WHERE login = ?";
+        try (Connection connection = ConnectionPool.getConnection()) {
+            try (PreparedStatement statement = connection.prepareStatement(sqlQuery)) {
+                statement.setString(1, loginUser);
+                ResultSet resultSet = statement.executeQuery();
+                while (resultSet.next()) {
+                    idUser = resultSet.getInt("id_User");
+                }
+            } catch (SQLException exception) {
+                log.error(exception.getLocalizedMessage());
+                connection.rollback();
+            }
+        } catch (SQLException exception) {
+            log.error(exception.getLocalizedMessage());
+        }
+        return idUser;
+    }
+
+    @Override
+    public void editUser(User user) {
+
+        String valueData = getData();
+        String sqlQuery = "UPDATE User SET name = ?, login = ?, password = ?, role = ?, preferred_Lang = ?, blocked = ?, update_At = ? WHERE id_User = ?";
+
+        try (Connection connection = ConnectionPool.getConnection()) {
+            try (PreparedStatement statement = connection.prepareStatement(sqlQuery)) {
+                statement.setString(1, user.getUserName());
+                statement.setString(2, user.getLoginUser());
+                statement.setString(3, user.getUserPassword());
+                statement.setString(4, user.getUserRole());
+                statement.setInt(5, user.getUserPreferredLang());
+                statement.setBoolean(6, user.getUserStatus());
+                statement.setString(7, valueData);
+                statement.setInt(8, user.getUserId());
+                statement.executeUpdate();
+            } catch (SQLException exception) {
+                log.error(exception.getLocalizedMessage());
+                connection.rollback();
+            }
+        } catch (SQLException exception) {
+            log.error(exception.getLocalizedMessage());
+        }
     }
 }
