@@ -1,6 +1,8 @@
 package com;
 
+import com.DAO.DAOImpl.TestDAOImpl;
 import com.connection.ConnectionPool;
+import com.entity.Test;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -8,6 +10,9 @@ import java.sql.*;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class ClassForTestMethod {
 
@@ -74,8 +79,8 @@ public class ClassForTestMethod {
         MessageDigest messageDigest = MessageDigest.getInstance("MD5");
         byte[] bytes = messageDigest.digest(password.getBytes());
         StringBuilder stringBuilder = new StringBuilder();
-        for (byte b:bytes) {
-            stringBuilder.append(String.format("%02X",b));
+        for (byte b : bytes) {
+            stringBuilder.append(String.format("%02X", b));
         }
         return String.valueOf(stringBuilder);
     }
@@ -90,6 +95,29 @@ public class ClassForTestMethod {
 //        }
 
 
+        TestDAOImpl testDAO = new TestDAOImpl();
+
+        List<Test> testList = testDAO.giveAllTests(1);
+
+        System.out.println(testList);
+
+        Map<String, String> correctAnswer = new HashMap<>();
+        correctAnswer.put("Посчитайте 2+2", "3");
+        correctAnswer.put("Посчитайте 3+3", "1");
+        correctAnswer.put("Посчитайте 5-2", "4");
+        correctAnswer.put("История", "Падре");
+
+//        for (Map.Entry<String, String> entry : correctAnswer.entrySet()) {
+//            String key = entry.getKey();
+//            String tab = entry.getValue();
+//            System.out.println(key + " " + tab);
+//        }
+
+        int df = testDAO.returnResultTest(correctAnswer);
+        int q = correctAnswer.size();
+        System.out.println("ОЦенка" + df + "/" + correctAnswer.size());
+        System.out.println(((df / q) * 100) + "%");
+
 //        SimpleDateFormat formater = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 //        java.util.Date date = new Date();
 //        String dataCheck = formater.format(date);
@@ -98,13 +126,13 @@ public class ClassForTestMethod {
 //        Integer language = Integer.valueOf("1");
 //        System.out.println(language);
 
-
-        String s = "admin";
-        if (s.equals("admin")){
-            System.out.println("adminPage");
-        } else System.out.println("erre page");
-
-        System.out.println(hash("anton123", "MD5"));
+//
+//        String s = "admin";
+//        if (s.equals("admin")) {
+//            System.out.println("adminPage");
+//        } else System.out.println("erre page");
+//
+//        System.out.println(hash("anton123", "MD5"));
 //        System.out.println("----------------------------------");
 //        System.out.println(MD5("anton123"));
 //        System.out.println("----------------------------------");
