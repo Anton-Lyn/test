@@ -7,8 +7,8 @@ import lombok.experimental.FieldDefaults;
 
 @Data
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class Answer {
-    Integer idAnswer;
-    Integer idTestInTableAnswer;
-    String answer;
+public class Results {
+    String nameSubject;
+    Integer score;
+    String dateTest;
 }

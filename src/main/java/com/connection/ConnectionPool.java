@@ -12,6 +12,10 @@ public class ConnectionPool {
     private static final HikariConfig config = new HikariConfig();
     private static final HikariDataSource ds;
 
+    private ConnectionPool () {
+
+    }
+
     static {
         config.setJdbcUrl("jdbc:mysql://localhost:3306/first_base");
         config.setUsername("root");

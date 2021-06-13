@@ -37,7 +37,7 @@ public class UserDAOImpl implements UserDAO {
 
     @Override
     public Optional<User> findUserByLogin(String loginUser) {
-        User user = new User();
+        User user = null;
         String sqlQuery = "SELECT * FROM User WHERE login = ?";
         try (Connection connection = ConnectionPool.getConnection()) {
             log.info("Connecting to a database to find a user");
@@ -45,6 +45,7 @@ public class UserDAOImpl implements UserDAO {
                 log.info("Successful connection to the database. Sending a query to the database");
                 statement.setString(1, loginUser);
                 ResultSet resultSet = statement.executeQuery();
+                user = new User();
                 while (resultSet.next()) {
                     user.setUserId(resultSet.getInt("id_User"));
                     user.setUserName(resultSet.getString("name"));
@@ -64,7 +65,7 @@ public class UserDAOImpl implements UserDAO {
         } catch (SQLException exception) {
             log.error(exception.getLocalizedMessage());
         }
-        return Optional.of(user);
+        return Optional.ofNullable(user);
     }
 
     @Override
@@ -76,28 +77,30 @@ public class UserDAOImpl implements UserDAO {
         log.info("Try to connection to DB");
         try (Connection connection = ConnectionPool.getConnection()) {
             log.info("Successfully connection to DB. Try to send request to DB to add user");
-            try (PreparedStatement statement = connection.prepareStatement(sqlQuery)) {
-                statement.setString(1, user.getUserName());
-                statement.setString(2, user.getLoginUser());
-                statement.setString(3, user.getUserPassword());
-                statement.setString(4, "user");
-                statement.setInt(5, user.getUserPreferredLang());
-                statement.setBoolean(6, false);
-                statement.setString(7, valueData);
-                statement.setString(8, valueData);
-                statement.executeUpdate();
+            try (PreparedStatement preparedStatement = connection.prepareStatement(sqlQuery)) {
+                preparedStatement.setString(1, user.getUserName());
+                preparedStatement.setString(2, user.getLoginUser());
+                preparedStatement.setString(3, user.getUserPassword());
+                preparedStatement.setString(4, "user");
+                preparedStatement.setInt(5, user.getUserPreferredLang());
+                preparedStatement.setBoolean(6, false);
+                preparedStatement.setString(7, valueData);
+                preparedStatement.setString(8, valueData);
+                preparedStatement.executeUpdate();
                 log.info("Successfully send request to DB");
             } catch (SQLException exception) {
                 log.error(exception.getLocalizedMessage());
                 connection.rollback();
             }
         } catch (SQLException exception) {
+            // todo do handling
             log.error(exception.getLocalizedMessage());
         }
     }
 
     @Override
     public int findUserExistence(String loginUser) {
+        // todo get rid of zero, add optional or Integer
         int idUser = 0;
         String sqlQuery = "SELECT id_User FROM User WHERE login = ?";
         try (Connection connection = ConnectionPool.getConnection()) {

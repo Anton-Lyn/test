@@ -32,34 +32,11 @@
         </tr>
     </c:forEach>
 </table>
-<form action="userTest" method="post">
-<c:forEach items="${sub.subjectList}" var="subject">
-<p>${subject.nameSubject}</p>
-    <p><input type="radio" value="${subject.nameSubject}, a1" name="q1">a1</p>
-    <p><input type="radio" value="${subject.nameSubject}, a2" name="q1">a2</p>
-    <p><input type="radio" value="${subject.nameSubject}, a3" name="q1">a2</p>
-<%--<p><button type="submit">go</button></p>--%>
-<p>${subject.nameSubject}</p>
-    <p><input type="radio" value="${subject.nameSubject}, ta1" name="q2">ta1</p>
-    <p><input type="radio" value="${subject.nameSubject}, ta2" name="q2">ta2</p>
-    <p><input type="radio" value="${subject.nameSubject}, ta3" name="q2">ta2</p>
-<p><button type="submit">go</button></p>
-</c:forEach>
-    </form>
-
-
-    <%--<c:forEach items="${sub.subjectList}" var="subject">--%>
-    <%--    <form action="userTest" method="get">--%>
-    <%--        <p>${subject.nameSubject}</p>--%>
-    <%--        <p><input type="checkbox" name="s1" value="${subject.idSubject}">${subject.idSubject}</p>--%>
-    <%--        <p><input type="checkbox" name="s2" value="${subject.idSubject}">${subject.complexitySubject}</p>--%>
-    <%--        <p><input type="checkbox" name="s3" value="${subject.idSubject}">${subject.dateCreatedSubject}</p>--%>
-    <%--        <button type="submit">go</button>--%>
-    <%--    </form>--%>
-    <%--</c:forEach>--%>
-
-    <form method="get" action="LogoutUser">
+<form action="userResults.jsp">
+    <button type="submit">Show results</button>
+</form>
+<form method="get" action="LogoutUser">
     <button type="submit">Logout</button>
-    </form>
-    </body>
-    </html>
+</form>
+</body>
+</html>

@@ -16,12 +16,14 @@ import java.io.UnsupportedEncodingException;
 @WebServlet(value = "/EditUser")
 public class AdminEditController extends HttpServlet {
 
+    // todo what do you need interfaces for ?????
     UserServiceImpl userService = new UserServiceImpl();
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) {
         HttpSession session = req.getSession();
         try {
+            // todo move to filter
             req.setCharacterEncoding("UTF-8");
         } catch (UnsupportedEncodingException exception) {
             log.error(exception.getLocalizedMessage());

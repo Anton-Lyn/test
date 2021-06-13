@@ -7,6 +7,7 @@ import lombok.extern.slf4j.Slf4j;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Slf4j
@@ -41,5 +42,26 @@ public class SubjectDAOImpl implements SubjectDAO {
             log.error(exception.getLocalizedMessage());
         }
         return allSubjects;
+    }
+
+    public Time getTimeTest(Integer idSubject) {
+
+        String sqlQuery = "SELECT time_To_Test FROM Subject WHERE id_subject=?";
+        Time timeTest = null;
+
+        try (Connection connection = ConnectionPool.getConnection()) {
+            try (PreparedStatement preparedStatement = connection.prepareStatement(sqlQuery)) {
+                preparedStatement.setInt(1, idSubject);
+                ResultSet resultSet = preparedStatement.executeQuery();
+                while (resultSet.next()) {
+                    timeTest = resultSet.getTime("time_To_Test");
+                }
+            } catch (SQLException exception) {
+                log.error(exception.getLocalizedMessage());
+            }
+        } catch (SQLException exception) {
+            log.error(exception.getLocalizedMessage());
+        }
+        return timeTest;
     }
 }

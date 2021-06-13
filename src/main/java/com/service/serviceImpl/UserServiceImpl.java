@@ -22,6 +22,7 @@ public class UserServiceImpl implements UserService {
         Optional<User> user = UserDAOImpl.getInstance().findUserByLogin(email);
         log.info("Successfully create user. Start check password user");
         User user1 = null;
+        // todo get rid of null, introduce exception in case if user does not exist
         if (user.isPresent()) {
             user1 = user.get();
         }

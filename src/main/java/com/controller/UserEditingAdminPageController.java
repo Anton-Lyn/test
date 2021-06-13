@@ -14,6 +14,7 @@ import java.io.IOException;
 @WebServlet(value = "/UserEditing")
 public class UserEditingAdminPageController  extends HttpServlet {
 
+    // todo the same
     UserServiceImpl userService = new UserServiceImpl();
 
     @Override
@@ -25,12 +26,14 @@ public class UserEditingAdminPageController  extends HttpServlet {
         boolean foundUser = false;
         int checkUserExistence = userService.checkUserExistence(login);
 
+        // todo get rid of foundUser var
         if (checkUserExistence != 0) {
             foundUser = true;
         }
 
         try {
             if (checkUserExistence == 0) {
+                // todo inline false
                 session.setAttribute("NotFoundUser", foundUser);
                 resp.sendRedirect("adminPageError.jsp");
             } else {
