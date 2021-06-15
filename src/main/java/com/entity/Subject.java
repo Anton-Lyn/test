@@ -16,4 +16,5 @@ public class Subject {
     String dateCreatedSubject;
     String dateUpdateSubject;
     Time timeTest;
+    Integer frequency;
 }

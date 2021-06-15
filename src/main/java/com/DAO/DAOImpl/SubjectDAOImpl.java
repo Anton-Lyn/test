@@ -6,6 +6,7 @@ import com.entity.Subject;
 import lombok.extern.slf4j.Slf4j;
 
 import java.sql.*;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -13,11 +14,28 @@ import java.util.List;
 @Slf4j
 public class SubjectDAOImpl implements SubjectDAO {
 
+    public String findQuery (Integer idSort) {
+        String sqlQuery = null;
+        switch (idSort) {
+            case 1 : sqlQuery = "SELECT * FROM Subject ORDER BY name_subject";
+            break;
+            case 2 : sqlQuery = "SELECT * FROM Subject ORDER BY complexity";
+            break;
+            case 3 : sqlQuery = "SELECT * FROM Subject ORDER BY complexity DESC";
+            break;
+            case 4 : sqlQuery = "SELECT * FROM Subject ORDER BY frequency";
+            break;
+            case 5 : sqlQuery = "SELECT * FROM Subject ORDER BY frequency DESC";
+            break;
+        }
+        return sqlQuery;
+    }
+
     @Override
-    public List<Subject> getAllSubjects() {
+    public List<Subject> getAllSubjects(Integer idSortBy) {
 
         List<Subject> allSubjects = new ArrayList<>();
-        String sqlQuery = "SELECT * FROM Subject";
+        String sqlQuery = findQuery(idSortBy);
 
         try (Connection connection = ConnectionPool.getConnection()) {
             log.info("Try to connection to DB to find Subject");
@@ -33,6 +51,7 @@ public class SubjectDAOImpl implements SubjectDAO {
                     subject.setDateCreatedSubject(resultSet.getString("created_At"));
                     subject.setDateUpdateSubject(resultSet.getString("update_At"));
                     subject.setTimeTest(resultSet.getTime("time_To_Test"));
+                    subject.setFrequency(resultSet.getInt("frequency"));
                     allSubjects.add(subject);
                 }
             } catch (SQLException exception) {
@@ -64,4 +83,34 @@ public class SubjectDAOImpl implements SubjectDAO {
         }
         return timeTest;
     }
+
+    public void addNewSubject(String nameSub, String complexityNewSub, Time timeNewSub) {
+
+        String sqlQuery = "INSERT INTO Subject VALUES (DEFAULT,?,?,?,?,?,?,?)";
+        String valueDate = getData();
+
+        try (Connection connection = ConnectionPool.getConnection()) {
+            try (PreparedStatement preparedStatement = connection.prepareStatement(sqlQuery)) {
+                preparedStatement.setInt(1, 1);
+                preparedStatement.setString(2, nameSub);
+                preparedStatement.setString(3, complexityNewSub);
+                preparedStatement.setString(4, valueDate);
+                preparedStatement.setString(5, valueDate);
+                preparedStatement.setTime(6, timeNewSub);
+                preparedStatement.setInt(7, 0);
+                preparedStatement.executeUpdate();
+            } catch (SQLException exception) {
+                log.error(exception.getLocalizedMessage());
+            }
+        } catch (SQLException exception) {
+            log.error(exception.getLocalizedMessage());
+        }
+    }
+
+    public String getData() {
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        java.util.Date date = new Date();
+        return simpleDateFormat.format(date);
+    }
+
 }

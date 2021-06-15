@@ -4,6 +4,7 @@ import com.entity.User;
 import com.service.serviceImpl.UserServiceImpl;
 import lombok.extern.slf4j.Slf4j;
 
+import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -23,12 +24,9 @@ public class UserLoginController extends HttpServlet {
         String email = req.getParameter("email");
         String password = req.getParameter("password");
 
-        // todo 1 set in a single line
-        // todo 2 extract to service
         String hashPassword;
         hashPassword = userService.hashingPassword(password);
 
-        // todo optional
         User receivedUser = userService.checkLogin(email, hashPassword);
 
         HttpSession session = req.getSession();
@@ -39,10 +37,8 @@ public class UserLoginController extends HttpServlet {
         session.setAttribute("status", receivedUser.getUserStatus());
         session.setAttribute("dateCreatedUser", receivedUser.getDateCreatedUser());
         session.setAttribute("dateUpdateUser", receivedUser.getDateUpdateUser());
+        session.setAttribute("sort", 1);
         try {
-            // todo extract in method
-            // todo move logic to service
-            // todo add method isAdmin()
             if (
                     receivedUser.getLoginUser() != null &&
                     receivedUser.getUserRole().equals("admin") &&
@@ -59,5 +55,16 @@ public class UserLoginController extends HttpServlet {
         } catch (IOException exception) {
             log.error(exception.getLocalizedMessage());
         }
+    }
+
+    @Override
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+
+        HttpSession session = req.getSession();
+
+        session.setAttribute("sort", req.getParameter("sort"));
+
+        resp.sendRedirect("userPage.jsp");
+
     }
 }

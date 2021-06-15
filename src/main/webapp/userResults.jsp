@@ -19,7 +19,7 @@
     <c:forEach items="${result.getResults(sessionScope.idUser)}" var="resultTable">
         <tr>
             <td>${resultTable.nameSubject}</td>
-            <td>${resultTable.score}</td>
+            <td><p>${resultTable.score}%/100%</p></td>
             <td>${resultTable.dateTest}</td>
         </tr>
     </c:forEach>

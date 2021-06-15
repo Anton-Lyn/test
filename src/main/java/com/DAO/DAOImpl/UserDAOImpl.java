@@ -90,17 +90,14 @@ public class UserDAOImpl implements UserDAO {
                 log.info("Successfully send request to DB");
             } catch (SQLException exception) {
                 log.error(exception.getLocalizedMessage());
-                connection.rollback();
             }
         } catch (SQLException exception) {
-            // todo do handling
             log.error(exception.getLocalizedMessage());
         }
     }
 
     @Override
     public int findUserExistence(String loginUser) {
-        // todo get rid of zero, add optional or Integer
         int idUser = 0;
         String sqlQuery = "SELECT id_User FROM User WHERE login = ?";
         try (Connection connection = ConnectionPool.getConnection()) {

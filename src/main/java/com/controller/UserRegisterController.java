@@ -16,14 +16,12 @@ import java.io.UnsupportedEncodingException;
 @WebServlet(value = "/register")
 public class UserRegisterController extends HttpServlet {
 
-    // todo naxui tebe interface
     UserServiceImpl userService = new UserServiceImpl();
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) {
         HttpSession session = req.getSession();
         try {
-            // todo facepalm
             req.setCharacterEncoding("UTF-8");
         } catch (UnsupportedEncodingException exception) {
             log.error(exception.getLocalizedMessage());

@@ -25,7 +25,11 @@ public class GetAnswersTest extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) {
 
         HttpSession session = req.getSession();
+        TestDAOImpl testDAO = new TestDAOImpl();
+
         Integer idSubject = (Integer) session.getAttribute("idTopic");
+
+        testDAO.addFrequency(idSubject);
 
         LocalTime testStartTime = (LocalTime) session.getAttribute("time");
         LocalTime testEndTime = LocalTime.now();
@@ -45,7 +49,6 @@ public class GetAnswersTest extends HttpServlet {
         if (testEndTime.isBefore(timeLimitForTheTest)) {
 
             Map<String, String> userAnswers = new HashMap<>();
-            TestDAOImpl testDAO = new TestDAOImpl();
             ArrayList<String> questions = testDAO.getAllQuestions();
 
             for (String s : questions) {
@@ -60,6 +63,7 @@ public class GetAnswersTest extends HttpServlet {
             Integer idUserInSession = (Integer) session.getAttribute("id");
 
             testDAO.setResultUserInDB(idUserInSession, idSubject, result);
+
 
             try {
                 resp.sendRedirect("userPage.jsp");

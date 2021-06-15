@@ -19,6 +19,12 @@
   <input name="email" type="email" placeholder="Email" required>
   <button type="submit">Поиск пользователя</button>
 </form>
+<form action="createTest.jsp">
+  <p><input type="submit" value="Create test"></p>
+</form>
+<form action="workWithTest.jsp">
+  <p><input type="submit" value="Edit test"></p>
+</form>
 <form method="get" action="LogoutUser">
   <button type="submit">Logout</button>
 </form>
