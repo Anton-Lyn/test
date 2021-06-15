@@ -4,6 +4,8 @@ import lombok.AccessLevel;
 import lombok.Data;
 import lombok.experimental.FieldDefaults;
 
+import java.sql.Time;
+
 @Data
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class Subject {
@@ -13,4 +15,6 @@ public class Subject {
     Integer complexitySubject;
     String dateCreatedSubject;
     String dateUpdateSubject;
+    Time timeTest;
+    Integer frequency;
 }

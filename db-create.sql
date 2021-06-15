@@ -82,7 +82,7 @@ CREATE TABLE `User`
 
 CREATE TABLE `Results`
 (
-    `id_Result`  varchar(45) NOT NULL,
+    `id_Result`  int NOT NULL AUTO_INCREMENT,
     `id_user`    int DEFAULT NULL,
     `id_subject` int DEFAULT NULL,
     `score`      int DEFAULT NULL,

@@ -7,4 +7,6 @@ public interface UserService {
     void registerNewUser(User user);
     String hashingPassword(String password);
     boolean validEmail (String email);
+    int checkUserExistence (String email);
+    void editUserService (User user);
 }

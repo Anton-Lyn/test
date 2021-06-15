@@ -4,5 +4,5 @@ import com.entity.Subject;
 import java.util.List;
 
 public interface SubjectService {
-    List<Subject> getSubjectList();
+    List<Subject> getSubjectList(Integer idSort);
 }

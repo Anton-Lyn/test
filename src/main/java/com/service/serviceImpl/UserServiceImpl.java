@@ -13,6 +13,9 @@ import java.util.Optional;
 @Slf4j
 public class UserServiceImpl implements UserService {
 
+    UserDAOImpl userDAO;
+    UserServiceImpl userService;
+
     @Override
     public User checkLogin(String email, String password) {
         log.info("Create user for check login and password in database");
@@ -25,12 +28,17 @@ public class UserServiceImpl implements UserService {
         return user1;
     }
 
+    public int checkUserExistence (String email){
+        userDAO = UserDAOImpl.getInstance();
+      return userDAO.findUserExistence(email);
+    }
+
     @Override
     public void registerNewUser(User user) {
         log.info("Create user for add user in DB.");
-        UserDAOImpl userDAO = UserDAOImpl.getInstance();
+        userDAO = UserDAOImpl.getInstance();
         log.info("Successfully create user. Start add user in DB");
-        UserServiceImpl userService = new UserServiceImpl();
+        userService = new UserServiceImpl();
         String password = user.getUserPassword();
         String hashPassword = userService.hashingPassword(password);
         user.setUserPassword(hashPassword);
@@ -54,6 +62,15 @@ public class UserServiceImpl implements UserService {
         }
         log.info("Password hashed");
         return String.valueOf(stringBuilder);
+    }
+
+    public void editUserService (User user){
+        userDAO = UserDAOImpl.getInstance();
+        userService = new UserServiceImpl();
+        String password = user.getUserPassword();
+        String hashPassword = userService.hashingPassword(password);
+        user.setUserPassword(hashPassword);
+        userDAO.editUser(user);
     }
 
     @Override
