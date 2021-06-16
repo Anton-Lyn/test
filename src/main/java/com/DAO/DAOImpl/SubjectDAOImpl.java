@@ -37,7 +37,7 @@ public class SubjectDAOImpl implements SubjectDAO {
         List<Subject> allSubjects = new ArrayList<>();
         String sqlQuery = findQuery(idSortBy);
 
-        log.info("Database connection");
+        log.info("Connecting to the database to get all subjects");
         try (Connection connection = ConnectionPool.getConnection()) {
             log.info("Successful connection");
             try (Statement statement = connection.createStatement()) {
@@ -68,7 +68,7 @@ public class SubjectDAOImpl implements SubjectDAO {
         String sqlQuery = "SELECT time_To_Test FROM Subject WHERE id_subject=?";
         Time timeTest = null;
 
-        log.info("Database connection");
+        log.info("Connecting to the database to get the test time");
         try (Connection connection = ConnectionPool.getConnection()) {
             log.info("Successful connection");
             try (PreparedStatement preparedStatement = connection.prepareStatement(sqlQuery)) {
@@ -91,7 +91,7 @@ public class SubjectDAOImpl implements SubjectDAO {
         String sqlQuery = "INSERT INTO Subject VALUES (DEFAULT,?,?,?,?,?,?,?)";
         String valueDate = getData();
 
-        log.info("Database connection");
+        log.info("Connecting to the database to adding a new subject");
         try (Connection connection = ConnectionPool.getConnection()) {
             log.info("Successful connection");
             try (PreparedStatement preparedStatement = connection.prepareStatement(sqlQuery)) {

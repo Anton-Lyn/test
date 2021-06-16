@@ -42,7 +42,7 @@ public class UserDAOImpl implements UserDAO {
         try (Connection connection = ConnectionPool.getConnection()) {
             log.info("Connecting to a database to find a user");
             try (PreparedStatement statement = connection.prepareStatement(sqlQuery)) {
-                log.info("Successful connection to the database. Sending a query to the database");
+                log.info("Successful connection");
                 statement.setString(1, loginUser);
                 ResultSet resultSet = statement.executeQuery();
                 user = new User();
@@ -74,9 +74,9 @@ public class UserDAOImpl implements UserDAO {
         String valueData = getData();
 
         String sqlQuery = "INSERT INTO User VALUES (DEFAULT,?,?,?,?,?,?,?,?)";
-        log.info("Try to connection to DB");
+        log.info("Connecting to the database to adding user");
         try (Connection connection = ConnectionPool.getConnection()) {
-            log.info("Successfully connection to DB. Try to send request to DB to add user");
+            log.info("Successful connection");
             try (PreparedStatement preparedStatement = connection.prepareStatement(sqlQuery)) {
                 preparedStatement.setString(1, user.getUserName());
                 preparedStatement.setString(2, user.getLoginUser());
@@ -100,7 +100,10 @@ public class UserDAOImpl implements UserDAO {
     public Optional<Integer> findUserExistence(String loginUser) {
         Integer idUser = null;
         String sqlQuery = "SELECT id_User FROM User WHERE login = ?";
+
+        log.info("Connecting to the database to check user in DB");
         try (Connection connection = ConnectionPool.getConnection()) {
+            log.info("Successful connection");
             try (PreparedStatement statement = connection.prepareStatement(sqlQuery)) {
                 statement.setString(1, loginUser);
                 ResultSet resultSet = statement.executeQuery();
@@ -123,7 +126,9 @@ public class UserDAOImpl implements UserDAO {
         String valueData = getData();
         String sqlQuery = "UPDATE User SET name = ?, login = ?, password = ?, role = ?, preferred_Lang = ?, blocked = ?, update_At = ? WHERE id_User = ?";
 
+        log.info("Connecting to the database to update user");
         try (Connection connection = ConnectionPool.getConnection()) {
+            log.info("Successful connection");
             try (PreparedStatement statement = connection.prepareStatement(sqlQuery)) {
                 statement.setString(1, user.getUserName());
                 statement.setString(2, user.getLoginUser());

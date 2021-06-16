@@ -22,7 +22,7 @@ public class TestDAOImpl implements TestDAO {
         String sqlQuerySetFrequency = "UPDATE Subject SET frequency = ? WHERE id_subject = ?";
         Integer frequency = null;
 
-        log.info("Database connection");
+        log.info("Connecting to the database to update frequency in subject");
         try (Connection connection = ConnectionPool.getConnection()) {
             log.info("Successful connection");
             try (PreparedStatement preparedStatementGet = connection.prepareStatement(sqlQueryGetFrequency)) {
@@ -56,7 +56,7 @@ public class TestDAOImpl implements TestDAO {
         String sqlQuery = "SELECT question, answer_1, answer_2, answer_3, answer_4 FROM Test WHERE id_Subject = ?";
         List<Test> allTest = new ArrayList<>();
 
-        log.info("Database connection");
+        log.info("Connecting to the database to get all tests");
         try (Connection connection = ConnectionPool.getConnection()) {
             log.info("Successful connection");
             try (PreparedStatement preparedStatement = connection.prepareStatement(sqlQuery)) {
@@ -90,7 +90,7 @@ public class TestDAOImpl implements TestDAO {
         String value;
         String timeValue;
 
-        log.info("Database connection");
+        log.info("Connecting to the database to get result test");
         try (Connection connection = ConnectionPool.getConnection()) {
             log.info("Successful connection");
             try (PreparedStatement preparedStatement = connection.prepareStatement(sqlQuery)) {
@@ -125,7 +125,7 @@ public class TestDAOImpl implements TestDAO {
         ArrayList<String> allQuestions = new ArrayList<>();
         String sqlQuery = "SELECT question FROM Test;";
 
-        log.info("Database connection");
+        log.info("Connecting to the database to get all questions");
         try (Connection connection = ConnectionPool.getConnection()) {
             log.info("Successful connection");
             try (Statement statement = connection.createStatement()) {
@@ -148,7 +148,7 @@ public class TestDAOImpl implements TestDAO {
         String sqlQuery = "INSERT INTO Results (id_Result, id_user, id_subject, score, date_Test) VALUES (DEFAULT, ?, ?, ?, ?);";
         String date = getData();
 
-        log.info("Database connection");
+        log.info("Connecting to the database to set result test");
         try (Connection connection = ConnectionPool.getConnection()) {
             log.info("Successful connection");
             try (PreparedStatement preparedStatement = connection.prepareStatement(sqlQuery)) {
@@ -170,7 +170,7 @@ public class TestDAOImpl implements TestDAO {
         List<Results> results = new ArrayList<>();
         String sqlQuery = "SELECT name_subject,score,date_Test  FROM Subject, Results WHERE Subject.id_subject=Results.id_subject AND Results.id_user=?";
 
-        log.info("Database connection");
+        log.info("Connecting to the database to get all results");
         try (Connection connection = ConnectionPool.getConnection()) {
             log.info("Successful connection");
             try (PreparedStatement preparedStatement = connection.prepareStatement(sqlQuery)) {
@@ -196,7 +196,7 @@ public class TestDAOImpl implements TestDAO {
 
         String sqlQuery = "DELETE FROM Subject WHERE id_subject = ?";
 
-        log.info("Database connection");
+        log.info("Connecting to the database to delete subject");
         try (Connection connection = ConnectionPool.getConnection()) {
             log.info("Successful connection");
             try (PreparedStatement preparedStatement = connection.prepareStatement(sqlQuery)) {
@@ -214,7 +214,7 @@ public class TestDAOImpl implements TestDAO {
 
         String sqlQuery = "DELETE FROM Results WHERE id_subject = ?";
 
-        log.info("Database connection");
+        log.info("Connecting to the database to delete results");
         try (Connection connection = ConnectionPool.getConnection()) {
             log.info("Successful connection");
             try (PreparedStatement preparedStatement = connection.prepareStatement(sqlQuery)) {
@@ -232,7 +232,7 @@ public class TestDAOImpl implements TestDAO {
 
         String sqlQuery = "DELETE FROM Test WHERE id_subject = ?";
 
-        log.info("Database connection");
+        log.info("DConnecting to the database to delete tests");
         try (Connection connection = ConnectionPool.getConnection()) {
             log.info("Successful connection");
             try (PreparedStatement preparedStatement = connection.prepareStatement(sqlQuery)) {
@@ -250,7 +250,7 @@ public class TestDAOImpl implements TestDAO {
 
         String sqlQuery = "INSERT INTO Test VALUES (DEFAULT, 1, ?, ?, ?, ?, ?, ?)";
 
-        log.info("Database connection");
+        log.info("Connecting to the database to adding test");
         try (Connection connection = ConnectionPool.getConnection()) {
             log.info("Successful connection");
             try (PreparedStatement preparedStatement = connection.prepareStatement(sqlQuery)) {

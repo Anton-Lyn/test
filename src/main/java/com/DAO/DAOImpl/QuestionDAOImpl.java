@@ -17,7 +17,7 @@ public class QuestionDAOImpl implements QuestionDAO {
 
         String sqlQuery = "UPDATE Test SET question = ?, answer_1 = ?, answer_2 = ?, answer_3 = ?, answer_4 = ? WHERE id_Test= ? ";
 
-        log.info("Database connection");
+        log.info("Connecting to the database to change the question");
         try (Connection connection = ConnectionPool.getConnection()) {
             log.info("Successful connection");
             try (PreparedStatement preparedStatement = connection.prepareStatement(sqlQuery)) {
@@ -42,7 +42,7 @@ public class QuestionDAOImpl implements QuestionDAO {
         String sqlQuery = "SELECT id_Test FROM Test WHERE question = ?";
         int idTest = 0;
 
-        log.info("Database connection");
+        log.info("Connecting to the database to get id test by question");
         try (Connection connection = ConnectionPool.getConnection()) {
             log.info("Successful connection");
             try (PreparedStatement preparedStatement = connection.prepareStatement(sqlQuery)) {
@@ -65,7 +65,7 @@ public class QuestionDAOImpl implements QuestionDAO {
 
         String sqlQuery = "DELETE FROM Test WHERE id_Test = ?";
 
-        log.info("Database connection");
+        log.info("Connecting to the database to delete question");
         try (Connection connection = ConnectionPool.getConnection()) {
             log.info("Successful connection");
             try (PreparedStatement preparedStatement = connection.prepareStatement(sqlQuery)) {
