@@ -13,12 +13,13 @@ import java.sql.SQLException;
 @Slf4j
 public class QuestionDAOImpl implements QuestionDAO {
 
-
     public void changeQuestion(Test test) {
 
         String sqlQuery = "UPDATE Test SET question = ?, answer_1 = ?, answer_2 = ?, answer_3 = ?, answer_4 = ? WHERE id_Test= ? ";
 
+        log.info("Database connection");
         try (Connection connection = ConnectionPool.getConnection()) {
+            log.info("Successful connection");
             try (PreparedStatement preparedStatement = connection.prepareStatement(sqlQuery)) {
                 preparedStatement.setString(1, test.getQuestion());
                 preparedStatement.setString(2, test.getAnswer1());
@@ -41,7 +42,9 @@ public class QuestionDAOImpl implements QuestionDAO {
         String sqlQuery = "SELECT id_Test FROM Test WHERE question = ?";
         int idTest = 0;
 
+        log.info("Database connection");
         try (Connection connection = ConnectionPool.getConnection()) {
+            log.info("Successful connection");
             try (PreparedStatement preparedStatement = connection.prepareStatement(sqlQuery)) {
                 preparedStatement.setString(1, question);
                 ResultSet resultSet = preparedStatement.executeQuery();
@@ -54,7 +57,6 @@ public class QuestionDAOImpl implements QuestionDAO {
         } catch (SQLException exception) {
             log.error(exception.getLocalizedMessage());
         }
-
         return idTest;
     }
 
@@ -62,7 +64,10 @@ public class QuestionDAOImpl implements QuestionDAO {
     public void deleteQuestion(Integer idTest) {
 
         String sqlQuery = "DELETE FROM Test WHERE id_Test = ?";
+
+        log.info("Database connection");
         try (Connection connection = ConnectionPool.getConnection()) {
+            log.info("Successful connection");
             try (PreparedStatement preparedStatement = connection.prepareStatement(sqlQuery)) {
                 preparedStatement.setInt(1, idTest);
                 preparedStatement.executeUpdate();
@@ -73,5 +78,4 @@ public class QuestionDAOImpl implements QuestionDAO {
             log.error(exception.getLocalizedMessage());
         }
     }
-
 }

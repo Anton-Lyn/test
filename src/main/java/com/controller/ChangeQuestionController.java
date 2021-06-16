@@ -16,11 +16,12 @@ import java.io.IOException;
 @WebServlet(value = "/takeQuestion")
 public class ChangeQuestionController extends HttpServlet {
 
+    QuestionDAO questionDAO = new QuestionDAOImpl();
+
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp){
         HttpSession session = req.getSession();
 
-        QuestionDAO questionDAO = new QuestionDAOImpl();
         Test test = new Test();
 
         String changedQuestion = (String) session.getAttribute("question");

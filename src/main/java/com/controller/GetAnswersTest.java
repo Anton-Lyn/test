@@ -3,6 +3,7 @@ package com.controller;
 import com.DAO.DAOImpl.SubjectDAOImpl;
 import com.DAO.DAOImpl.TestDAOImpl;
 import com.DAO.SubjectDAO;
+import com.DAO.TestDAO;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 
@@ -20,12 +21,12 @@ import java.util.*;
 @WebServlet(value = "/getAnswers")
 public class GetAnswersTest extends HttpServlet {
 
-    @SneakyThrows
+    TestDAO testDAO = new TestDAOImpl();
+
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) {
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
 
         HttpSession session = req.getSession();
-        TestDAOImpl testDAO = new TestDAOImpl();
 
         Integer idSubject = (Integer) session.getAttribute("idTopic");
 

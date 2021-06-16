@@ -37,10 +37,10 @@ public class SubjectDAOImpl implements SubjectDAO {
         List<Subject> allSubjects = new ArrayList<>();
         String sqlQuery = findQuery(idSortBy);
 
+        log.info("Database connection");
         try (Connection connection = ConnectionPool.getConnection()) {
-            log.info("Try to connection to DB to find Subject");
+            log.info("Successful connection");
             try (Statement statement = connection.createStatement()) {
-
                 ResultSet resultSet = statement.executeQuery(sqlQuery);
                 while (resultSet.next()) {
                     Subject subject = new Subject();
@@ -68,7 +68,9 @@ public class SubjectDAOImpl implements SubjectDAO {
         String sqlQuery = "SELECT time_To_Test FROM Subject WHERE id_subject=?";
         Time timeTest = null;
 
+        log.info("Database connection");
         try (Connection connection = ConnectionPool.getConnection()) {
+            log.info("Successful connection");
             try (PreparedStatement preparedStatement = connection.prepareStatement(sqlQuery)) {
                 preparedStatement.setInt(1, idSubject);
                 ResultSet resultSet = preparedStatement.executeQuery();
@@ -89,7 +91,9 @@ public class SubjectDAOImpl implements SubjectDAO {
         String sqlQuery = "INSERT INTO Subject VALUES (DEFAULT,?,?,?,?,?,?,?)";
         String valueDate = getData();
 
+        log.info("Database connection");
         try (Connection connection = ConnectionPool.getConnection()) {
+            log.info("Successful connection");
             try (PreparedStatement preparedStatement = connection.prepareStatement(sqlQuery)) {
                 preparedStatement.setInt(1, 1);
                 preparedStatement.setString(2, nameSub);
@@ -112,5 +116,4 @@ public class SubjectDAOImpl implements SubjectDAO {
         java.util.Date date = new Date();
         return simpleDateFormat.format(date);
     }
-
 }

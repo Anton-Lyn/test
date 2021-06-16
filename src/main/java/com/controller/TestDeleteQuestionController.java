@@ -14,15 +14,15 @@ import java.io.IOException;
 @Slf4j
 @WebServlet(value = "/deleteQuestion")
 public class TestDeleteQuestionController extends HttpServlet {
+
+    QuestionDAO questionDAO = new QuestionDAOImpl();
+
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) {
-
-        QuestionDAO questionDAO = new QuestionDAOImpl();
 
         String question = req.getParameter("topic2");
         Integer idQuestion = questionDAO.getIdTestByQuestion(question);
         questionDAO.deleteQuestion(idQuestion);
-
         try {
             resp.sendRedirect("editTest.jsp");
         } catch (IOException exception) {

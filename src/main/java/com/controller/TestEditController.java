@@ -14,9 +14,11 @@ import java.io.IOException;
 @Slf4j
 @WebServlet(value = "/editTests")
 public class TestEditController extends HttpServlet {
+
+    TestDAO testDAO = new TestDAOImpl();
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) {
-        TestDAO testDAO = new TestDAOImpl();
 
         Integer idSubject = Integer.valueOf(req.getParameter("deleteTest"));
 
