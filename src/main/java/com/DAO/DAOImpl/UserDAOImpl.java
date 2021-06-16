@@ -97,8 +97,8 @@ public class UserDAOImpl implements UserDAO {
     }
 
     @Override
-    public int findUserExistence(String loginUser) {
-        int idUser = 0;
+    public Optional<Integer> findUserExistence(String loginUser) {
+        Integer idUser = null;
         String sqlQuery = "SELECT id_User FROM User WHERE login = ?";
         try (Connection connection = ConnectionPool.getConnection()) {
             try (PreparedStatement statement = connection.prepareStatement(sqlQuery)) {
@@ -114,7 +114,7 @@ public class UserDAOImpl implements UserDAO {
         } catch (SQLException exception) {
             log.error(exception.getLocalizedMessage());
         }
-        return idUser;
+        return Optional.ofNullable(idUser);
     }
 
     @Override

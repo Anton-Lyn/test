@@ -11,7 +11,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
 
 @Slf4j
 @WebServlet(value = "/EditUser")
@@ -31,9 +30,9 @@ public class AdminEditController extends HttpServlet {
         Integer newLang = Integer.valueOf(req.getParameter("newLang"));
         Boolean newStatus = Boolean.valueOf(req.getParameter("newStatus"));
 
-        boolean checkValidEmail = userService.validEmail(newLogin);
+        boolean validEmail = userService.emailValidityCheck(newLogin);
 
-        if (checkValidEmail) {
+        if (validEmail) {
 
             User modifiedUser = new User();
 
@@ -45,7 +44,7 @@ public class AdminEditController extends HttpServlet {
             modifiedUser.setUserPreferredLang(newLang);
             modifiedUser.setUserStatus(newStatus);
 
-            userService.editUserService(modifiedUser);
+            userService.userUpdate(modifiedUser);
 
             try {
                 resp.sendRedirect("adminPage.jsp");

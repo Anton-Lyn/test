@@ -23,7 +23,7 @@ public class AdminCreateSubjectController extends HttpServlet {
         Time timeToTestNewSubjectToDB = getTimeNewSubject(timeToTestNewSubject);
 
         SubjectDAO subjectDAO = new SubjectDAOImpl();
-        subjectDAO.addNewSubject(nameNewSubject, complexityNewSubject, timeToTestNewSubjectToDB);
+        subjectDAO.addingANewSubject(nameNewSubject, complexityNewSubject, timeToTestNewSubjectToDB);
 
         try {
             resp.sendRedirect("adminPage.jsp");

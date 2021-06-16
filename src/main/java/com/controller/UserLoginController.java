@@ -1,6 +1,7 @@
 package com.controller;
 
 import com.entity.User;
+import com.service.UserService;
 import com.service.serviceImpl.UserServiceImpl;
 import lombok.extern.slf4j.Slf4j;
 
@@ -15,7 +16,7 @@ import java.io.IOException;
 @WebServlet(value = "/login")
 public class UserLoginController extends HttpServlet {
 
-    UserServiceImpl userService = new UserServiceImpl();
+    UserService userService = new UserServiceImpl();
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) {
@@ -23,9 +24,7 @@ public class UserLoginController extends HttpServlet {
         String email = req.getParameter("email");
         String password = req.getParameter("password");
 
-        String hashPassword;
-        hashPassword = userService.hashingPassword(password);
-
+        String hashPassword = userService.hashingPassword(password);
         User receivedUser = userService.checkLogin(email, hashPassword);
 
         HttpSession session = req.getSession();
@@ -38,15 +37,9 @@ public class UserLoginController extends HttpServlet {
         session.setAttribute("dateUpdateUser", receivedUser.getDateUpdateUser());
         session.setAttribute("sort", 1);
         try {
-            if (
-                    receivedUser.getLoginUser() != null &&
-                    receivedUser.getUserRole().equals("admin") &&
-                    receivedUser.getUserPassword().equals(hashPassword)) {
+            if (userService.isAdmin(receivedUser, hashPassword)) {
                 resp.sendRedirect("adminPage.jsp");
-            } else if (
-                    receivedUser.getLoginUser() != null &&
-                    receivedUser.getUserPassword().equals(hashPassword) &&
-                    receivedUser.getUserStatus().equals(false)) {
+            } else if (userService.idUser(receivedUser, hashPassword)) {
                 resp.sendRedirect("userPage.jsp");
             } else {
                 resp.sendRedirect("loginError.jsp");
@@ -57,13 +50,15 @@ public class UserLoginController extends HttpServlet {
     }
 
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) {
 
         HttpSession session = req.getSession();
-
         session.setAttribute("sort", req.getParameter("sort"));
 
-        resp.sendRedirect("userPage.jsp");
-
+        try {
+            resp.sendRedirect("userPage.jsp");
+        } catch (IOException exception) {
+            log.error(exception.getLocalizedMessage());
+        }
     }
 }

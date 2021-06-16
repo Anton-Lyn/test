@@ -5,8 +5,8 @@
 </head>
 <body>
 <div>
-    <h4>You Login by: ${name}</h4>
-    <h4> Your role: ${role} </h4>
+    <h4>You Login by: ${sessionScope.name}</h4>
+    <h4> Your role: ${sessionScope.role} </h4>
 </div>
 <form method="post" action="UserEditing">
     <label>Enter the username of the user you want to edit:</label></br>

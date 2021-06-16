@@ -19,18 +19,37 @@ public class UserServiceImpl implements UserService {
     @Override
     public User checkLogin(String email, String password) {
         log.info("Create user for check login and password in database");
-        Optional<User> user = UserDAOImpl.getInstance().findUserByLogin(email);
+        Optional<User> userFromDB = UserDAOImpl.getInstance().findUserByLogin(email);
         log.info("Successfully create user. Start check password user");
-        User user1 = null;
-        if (user.isPresent()) {
-            user1 = user.get();
+        User user = null;
+        if (userFromDB.isPresent()) {
+            user = userFromDB.get();
         }
-        return user1;
+        return user;
     }
 
-    public int checkUserExistence (String email){
+    public boolean isAdmin(User user, String password) {
+
+        return user.getLoginUser() != null &&
+                user.getUserRole().equals("admin") &&
+                user.getUserPassword().equals(password);
+
+    }
+
+    public boolean idUser(User user, String password) {
+        return user.getLoginUser() != null &&
+                user.getUserPassword().equals(password) &&
+                user.getUserStatus().equals(false);
+    }
+
+    public Integer checkUserExistence(String email) {
         userDAO = UserDAOImpl.getInstance();
-      return userDAO.findUserExistence(email);
+        Optional<Integer> idUserFromDB = UserDAOImpl.getInstance().findUserExistence(email);
+        Integer idUser = null;
+        if (idUserFromDB.isPresent()) {
+            idUser = idUserFromDB.get();
+        }
+        return idUser;
     }
 
     @Override
@@ -64,7 +83,7 @@ public class UserServiceImpl implements UserService {
         return String.valueOf(stringBuilder);
     }
 
-    public void editUserService (User user){
+    public void userUpdate(User user) {
         userDAO = UserDAOImpl.getInstance();
         userService = new UserServiceImpl();
         String password = user.getUserPassword();
@@ -74,7 +93,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public boolean validEmail(String email) {
+    public boolean emailValidityCheck(String email) {
         return EmailValidator.getInstance().isValid(email);
     }
 }

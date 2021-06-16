@@ -11,7 +11,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
 
 @Slf4j
 @WebServlet(value = "/register")
@@ -28,14 +27,12 @@ public class UserRegisterController extends HttpServlet {
         String password = req.getParameter("password");
         Integer language = Integer.valueOf(req.getParameter("lang"));
 
-        int checkUserExistence = userService.checkUserExistence(login);
-        boolean checkValidEmail = userService.validEmail(login);
-
-        boolean check;
-        check = checkUserExistence != 0;
+        Integer checkUserExistence = userService.checkUserExistence(login);
+        boolean checkValidEmail = userService.emailValidityCheck(login);
+        boolean checkUser = checkUserExistence != null;
 
         try {
-            if (checkValidEmail && checkUserExistence == 0) {
+            if (checkValidEmail && checkUserExistence == null) {
 
                     User user = new User();
                     user.setUserName(name);
@@ -46,7 +43,7 @@ public class UserRegisterController extends HttpServlet {
                     resp.sendRedirect("index.jsp");
 
             } else {
-                session.setAttribute("checkUserExistence", check);
+                session.setAttribute("checkUserExistence", checkUser);
                 session.setAttribute("checkValidEmail", !checkValidEmail);
                 resp.sendRedirect("registerPageError.jsp");
             }

@@ -15,7 +15,7 @@
         <option value="3">Сложный</option>
     </select></p>
     <p><label>Time to the test in minutes.</label></p>
-    <p><input type="number" max="720" name="time"></p>
+    <p><input type="number" max="720" name="time" required></p>
     <button type="submit">Create test</button>
 </form>
 

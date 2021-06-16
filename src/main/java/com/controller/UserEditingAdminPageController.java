@@ -23,10 +23,10 @@ public class UserEditingAdminPageController  extends HttpServlet {
         HttpSession session = req.getSession();
         String login = req.getParameter("email");
 
-        int checkUserExistence = userService.checkUserExistence(login);
+        Integer checkUserExistence = userService.checkUserExistence(login);
 
         try {
-            if (checkUserExistence == 0) {
+            if (checkUserExistence == null) {
                 session.setAttribute("NotFoundUser", false);
                 resp.sendRedirect("adminPageError.jsp");
             } else {

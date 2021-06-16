@@ -9,7 +9,6 @@ import java.util.List;
 public class GetTestsServiceImpl implements GetTestsService {
 
     TestDAOImpl testDAO = new TestDAOImpl();
-
     public List<Test> getTestsList (Integer idSubject) {
         return testDAO.giveAllTests(idSubject);
     }

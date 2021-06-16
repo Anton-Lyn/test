@@ -6,8 +6,8 @@
 <body>
 
 <div>
-  <h4>You Login by: ${name}</h4>
-  <h4> Your role: ${role} </h4>
+  <h4>You Login by: ${sessionScope.name}</h4>
+  <h4> Your role: ${sessionScope.role} </h4>
 </div>
 <%
   if (session.getAttribute("NotFoundUser").equals(false)){

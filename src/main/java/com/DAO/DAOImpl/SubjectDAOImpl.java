@@ -84,7 +84,7 @@ public class SubjectDAOImpl implements SubjectDAO {
         return timeTest;
     }
 
-    public void addNewSubject(String nameSub, String complexityNewSub, Time timeNewSub) {
+    public void addingANewSubject(String nameSub, String complexityNewSub, Time timeNewSub) {
 
         String sqlQuery = "INSERT INTO Subject VALUES (DEFAULT,?,?,?,?,?,?,?)";
         String valueDate = getData();

@@ -8,7 +8,6 @@ import java.util.List;
 
 public class SubjectServiceImpl implements SubjectService {
     SubjectDAOImpl subjectDAO = new SubjectDAOImpl();
-
     public List<Subject> getSubjectList(Integer idSort) {
         return subjectDAO.getAllSubjects(idSort);
     }

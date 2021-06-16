@@ -8,5 +8,5 @@ import java.util.List;
 public interface SubjectDAO {
     List<Subject> getAllSubjects(Integer idSortBy);
     Time getTimeTest(Integer idSubject);
-    void addNewSubject (String nameSub, String complexityNewSub, Time timeNewSub);
+    void addingANewSubject(String nameSub, String complexityNewSub, Time timeNewSub);
 }

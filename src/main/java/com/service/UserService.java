@@ -6,7 +6,9 @@ public interface UserService {
     User checkLogin (String email, String password);
     void registerNewUser(User user);
     String hashingPassword(String password);
-    boolean validEmail (String email);
-    int checkUserExistence (String email);
-    void editUserService (User user);
+    boolean emailValidityCheck(String email);
+    Integer checkUserExistence (String email);
+    void userUpdate(User user);
+    boolean isAdmin(User user, String password);
+    boolean idUser(User user, String password);
 }
