@@ -1,5 +1,6 @@
 package com.DAO;
 
+import com.entity.Results;
 import com.entity.Test;
 
 import java.util.ArrayList;
@@ -17,4 +18,5 @@ public interface TestDAO {
     void deleteResults (Integer idSubject);
     void deleteTests(Integer idSubject);
     void addTest (Test test);
+    List<Results> getResults(Integer idUser);
 }
