@@ -19,7 +19,8 @@ public class UserServiceImpl implements UserService {
     @Override
     public User checkLogin(String email, String password) {
         log.info("Create user for check login and password in database");
-        Optional<User> userFromDB = UserDAOImpl.getInstance().findUserByLogin(email);
+        userDAO = UserDAOImpl.getInstance();
+        Optional<User> userFromDB = userDAO.findUserByLogin(email);
         log.info("Successfully create user. Start check password user");
         User user = null;
         if (userFromDB.isPresent()) {
@@ -44,7 +45,7 @@ public class UserServiceImpl implements UserService {
 
     public Integer checkUserExistence(String email) {
         userDAO = UserDAOImpl.getInstance();
-        Optional<Integer> idUserFromDB = UserDAOImpl.getInstance().findUserExistence(email);
+        Optional<Integer> idUserFromDB = userDAO.findUserExistence(email);
         Integer idUser = null;
         if (idUserFromDB.isPresent()) {
             idUser = idUserFromDB.get();
