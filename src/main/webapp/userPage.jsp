@@ -2,7 +2,6 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <jsp:useBean id="sub" class="com.service.serviceImpl.SubjectServiceImpl" scope="page"/>
 
-
 <html>
 <head>
     <title>User Page</title>
@@ -10,8 +9,9 @@
 <body>
 <br>
 <div>
-    <h4>You Login by: ${name}</h4>
-    <h4> Your role: ${role} </h4>
+    <h4>You login by: ${sessionScope.name}</h4>
+    <h4>You login: ${sessionScope.login}</h4>
+    <h4> Your role: ${sessionScope.role} </h4>
 </div>
 
 <form method="get" action="login">
@@ -39,13 +39,13 @@
             <td>
                 <c:choose>
                     <c:when test="${subject.complexitySubject == 1}">
-                        Легкий
+                        Легкий / Easy
                     </c:when>
                     <c:when test="${subject.complexitySubject == 2}">
-                        Cредний
+                        Средний / Middle
                     </c:when>
                     <c:when test="${subject.complexitySubject == 3}">
-                        Сложный
+                        Сложный / Hard
                     </c:when>
                 </c:choose>
             </td>

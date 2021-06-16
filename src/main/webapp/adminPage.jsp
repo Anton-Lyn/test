@@ -9,9 +9,9 @@
     <h4> Your role: ${role} </h4>
 </div>
 <form method="post" action="UserEditing">
-    <label>Введите логин пользователя которого вы хотите отредактировать:</label></br>
+    <label>Enter the username of the user you want to edit:</label></br>
     <input name="email" type="email" placeholder="Email" required>
-    <button type="submit">Поиск пользователя</button>
+    <button type="submit">Search for a user</button>
 </form>
 <form action="createTest.jsp">
 <p><input type="submit" value="Create test"></p>

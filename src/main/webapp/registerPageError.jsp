@@ -25,7 +25,7 @@
         <option value="1">Русский</option>
         <option value="2">English</option>
     </select>
-    <button type="submit">Зарегистрироваться</button>
+    <button type="submit">Register</button>
 </form>
 </body>
 </html>

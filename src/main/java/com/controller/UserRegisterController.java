@@ -1,6 +1,7 @@
 package com.controller;
 
 import com.entity.User;
+import com.service.UserService;
 import com.service.serviceImpl.UserServiceImpl;
 import lombok.extern.slf4j.Slf4j;
 
@@ -16,16 +17,11 @@ import java.io.UnsupportedEncodingException;
 @WebServlet(value = "/register")
 public class UserRegisterController extends HttpServlet {
 
-    UserServiceImpl userService = new UserServiceImpl();
+    UserService userService = new UserServiceImpl();
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) {
         HttpSession session = req.getSession();
-        try {
-            req.setCharacterEncoding("UTF-8");
-        } catch (UnsupportedEncodingException exception) {
-            log.error(exception.getLocalizedMessage());
-        }
 
         String name = req.getParameter("name");
         String login = req.getParameter("email");
@@ -42,7 +38,6 @@ public class UserRegisterController extends HttpServlet {
             if (checkValidEmail && checkUserExistence == 0) {
 
                     User user = new User();
-
                     user.setUserName(name);
                     user.setLoginUser(login);
                     user.setUserPassword(password);
