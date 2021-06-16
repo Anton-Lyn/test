@@ -1,6 +1,7 @@
 package com.controller;
 
 import com.entity.User;
+import com.service.UserService;
 import com.service.serviceImpl.UserServiceImpl;
 import lombok.extern.slf4j.Slf4j;
 
@@ -16,16 +17,11 @@ import java.io.UnsupportedEncodingException;
 @WebServlet(value = "/EditUser")
 public class AdminEditController extends HttpServlet {
 
-    UserServiceImpl userService = new UserServiceImpl();
+    UserService userService = new UserServiceImpl();
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) {
         HttpSession session = req.getSession();
-        try {
-            req.setCharacterEncoding("UTF-8");
-        } catch (UnsupportedEncodingException exception) {
-            log.error(exception.getLocalizedMessage());
-        }
 
         Integer idUser = (Integer) session.getAttribute("UserId");
         String newName = req.getParameter("newName");

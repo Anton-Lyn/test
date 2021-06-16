@@ -1,5 +1,6 @@
 package com.controller;
 
+import com.service.UserService;
 import com.service.serviceImpl.UserServiceImpl;
 import lombok.extern.slf4j.Slf4j;
 
@@ -14,7 +15,7 @@ import java.io.IOException;
 @WebServlet(value = "/UserEditing")
 public class UserEditingAdminPageController  extends HttpServlet {
 
-    UserServiceImpl userService = new UserServiceImpl();
+    UserService userService = new UserServiceImpl();
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) {
@@ -22,16 +23,11 @@ public class UserEditingAdminPageController  extends HttpServlet {
         HttpSession session = req.getSession();
         String login = req.getParameter("email");
 
-        boolean foundUser = false;
         int checkUserExistence = userService.checkUserExistence(login);
-
-        if (checkUserExistence != 0) {
-            foundUser = true;
-        }
 
         try {
             if (checkUserExistence == 0) {
-                session.setAttribute("NotFoundUser", foundUser);
+                session.setAttribute("NotFoundUser", false);
                 resp.sendRedirect("adminPageError.jsp");
             } else {
                 session.setAttribute("UserId", checkUserExistence);

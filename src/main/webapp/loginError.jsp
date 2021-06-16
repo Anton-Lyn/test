@@ -17,14 +17,14 @@
         }
     %>
     <form align="center" action="login" method="post">
-        <label>Введите ваш email:</label></br>
+        <label>Enter your email:</label></br>
         <input name="email" type="email" placeholder="Email" required></br>
-        <label>Введите пароль:</label></br>
+        <label>Enter your password:</label></br>
         <input name="password" type="password" placeholder="Password" required></br>
-        <button type="submit">Вход</button>
+        <button type="submit">Log in</button>
     </form>
     <form align="center" action="registerPage.jsp">
-        <label>Регистрация</label></br></br>
+        <label>Registration</label></br></br>
         <input type="submit" value="Register"/>
     </form>
 </div>

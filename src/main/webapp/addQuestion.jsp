@@ -41,7 +41,7 @@
 </form>
 
 <form action="workWithTest.jsp">
-    <p><input type="submit" value="Edit test"></p>
+    <p><input type="submit" value="Edit test page"></p>
 </form>
 
 </body>
