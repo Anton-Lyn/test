@@ -228,6 +228,24 @@ public class TestDAOImpl implements TestDAO {
         }
     }
 
+    public void deleteResultsByUser(Integer idUser) {
+
+        String sqlQuery = "DELETE FROM Results WHERE id_user = ?";
+
+        log.info("Connecting to the database to delete results");
+        try (Connection connection = ConnectionPool.getConnection()) {
+            log.info("Successful connection");
+            try (PreparedStatement preparedStatement = connection.prepareStatement(sqlQuery)) {
+                preparedStatement.setInt(1, idUser);
+                preparedStatement.executeUpdate();
+            } catch (SQLException exception) {
+                log.error(exception.getLocalizedMessage());
+            }
+        } catch (SQLException exception) {
+            log.error(exception.getLocalizedMessage());
+        }
+    }
+
     public void deleteTests(Integer idSubject) {
 
         String sqlQuery = "DELETE FROM Test WHERE id_subject = ?";

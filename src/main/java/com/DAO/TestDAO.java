@@ -19,4 +19,5 @@ public interface TestDAO {
     void deleteTests(Integer idSubject);
     void addTest (Test test);
     List<Results> getResults(Integer idUser);
+    void deleteResultsByUser(Integer idUser);
 }

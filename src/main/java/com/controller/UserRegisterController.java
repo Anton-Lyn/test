@@ -27,7 +27,7 @@ public class UserRegisterController extends HttpServlet {
         String password = req.getParameter("password");
         Integer language = Integer.valueOf(req.getParameter("lang"));
 
-        Integer checkUserExistence = userService.checkUserExistence(login);
+        User checkUserExistence = userService.checkUserExistence(login);
         boolean checkValidEmail = userService.emailValidityCheck(login);
         boolean checkUser = checkUserExistence != null;
 

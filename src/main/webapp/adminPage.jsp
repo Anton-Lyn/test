@@ -19,6 +19,11 @@
 <form action="workWithTest.jsp">
     <p><input type="submit" value="Edit test"></p>
 </form>
+
+
+<form action="adminPageAllUsers.jsp">
+    <button type="submit">Users Table</button>
+</form>
 <form method="get" action="LogoutUser">
     <button type="submit">Logout</button>
 </form>

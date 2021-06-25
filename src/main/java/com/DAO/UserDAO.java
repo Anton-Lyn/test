@@ -7,6 +7,7 @@ public interface UserDAO {
     Optional<User> findUserByLogin(String loginUser);
     void addUser(User user);
     String getData();
-    Optional<Integer> findUserExistence (String loginUser);
+    Optional<User> findUserExistence (String loginUser);
     void editUser(User user);
+    void deleteUser (Integer idUser);
 }

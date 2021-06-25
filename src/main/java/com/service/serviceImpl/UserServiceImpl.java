@@ -8,13 +8,13 @@ import org.apache.commons.validator.routines.EmailValidator;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.List;
 import java.util.Optional;
 
 @Slf4j
 public class UserServiceImpl implements UserService {
 
     UserDAOImpl userDAO;
-    UserServiceImpl userService;
 
     @Override
     public User checkLogin(String email, String password) {
@@ -43,10 +43,10 @@ public class UserServiceImpl implements UserService {
                 user.getUserStatus().equals(false);
     }
 
-    public Integer checkUserExistence(String email) {
+    public User checkUserExistence(String email) {
         userDAO = UserDAOImpl.getInstance();
-        Optional<Integer> idUserFromDB = userDAO.findUserExistence(email);
-        Integer idUser = null;
+        Optional<User> idUserFromDB = userDAO.findUserExistence(email);
+        User idUser = null;
         if (idUserFromDB.isPresent()) {
             idUser = idUserFromDB.get();
         }
@@ -58,9 +58,8 @@ public class UserServiceImpl implements UserService {
         log.info("Create user for add user in DB.");
         userDAO = UserDAOImpl.getInstance();
         log.info("Successfully create user. Start add user in DB");
-        userService = new UserServiceImpl();
         String password = user.getUserPassword();
-        String hashPassword = userService.hashingPassword(password);
+        String hashPassword = hashingPassword(password);
         user.setUserPassword(hashPassword);
         userDAO.addUser(user);
     }
@@ -86,15 +85,20 @@ public class UserServiceImpl implements UserService {
 
     public void userUpdate(User user) {
         userDAO = UserDAOImpl.getInstance();
-        userService = new UserServiceImpl();
         String password = user.getUserPassword();
-        String hashPassword = userService.hashingPassword(password);
+        String hashPassword = hashingPassword(password);
         user.setUserPassword(hashPassword);
         userDAO.editUser(user);
+    }
+
+    public List<User> getAllUsers () {
+        userDAO = UserDAOImpl.getInstance();
+        return userDAO.getAllUsersDB();
     }
 
     @Override
     public boolean emailValidityCheck(String email) {
         return EmailValidator.getInstance().isValid(email);
     }
+
 }

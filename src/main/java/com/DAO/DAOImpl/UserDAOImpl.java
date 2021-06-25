@@ -5,12 +5,11 @@ import com.connection.ConnectionPool;
 import com.entity.User;
 import lombok.extern.slf4j.Slf4j;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Optional;
 
 @Slf4j
@@ -97,18 +96,26 @@ public class UserDAOImpl implements UserDAO {
     }
 
     @Override
-    public Optional<Integer> findUserExistence(String loginUser) {
-        Integer idUser = null;
-        String sqlQuery = "SELECT id_User FROM User WHERE login = ?";
-
+    public Optional<User> findUserExistence(String loginUser) {
+        User user = null;
+        String sqlQuery = "SELECT * FROM User WHERE login = ?";
         log.info("Connecting to the database to check user in DB");
         try (Connection connection = ConnectionPool.getConnection()) {
             log.info("Successful connection");
             try (PreparedStatement statement = connection.prepareStatement(sqlQuery)) {
                 statement.setString(1, loginUser);
                 ResultSet resultSet = statement.executeQuery();
+                user = new User();
                 while (resultSet.next()) {
-                    idUser = resultSet.getInt("id_User");
+                    user.setUserId(resultSet.getInt("id_User"));
+                    user.setUserName(resultSet.getString("name"));
+                    user.setLoginUser(resultSet.getString("login"));
+                    user.setUserPassword(resultSet.getString("password"));
+                    user.setUserRole(resultSet.getString("role"));
+                    user.setUserPreferredLang(resultSet.getInt("preferred_Lang"));
+                    user.setUserStatus(resultSet.getBoolean("blocked"));
+                    user.setDateUpdateUser(resultSet.getString("created_At"));
+                    user.setDateCreatedUser(resultSet.getString("update_At"));
                 }
             } catch (SQLException exception) {
                 log.error(exception.getLocalizedMessage());
@@ -117,7 +124,7 @@ public class UserDAOImpl implements UserDAO {
         } catch (SQLException exception) {
             log.error(exception.getLocalizedMessage());
         }
-        return Optional.ofNullable(idUser);
+        return Optional.ofNullable(user);
     }
 
     @Override
@@ -142,6 +149,49 @@ public class UserDAOImpl implements UserDAO {
             } catch (SQLException exception) {
                 log.error(exception.getLocalizedMessage());
                 connection.rollback();
+            }
+        } catch (SQLException exception) {
+            log.error(exception.getLocalizedMessage());
+        }
+    }
+
+    public List<User> getAllUsersDB() {
+
+        String sqlQuery = "SELECT name, id_User FROM User";
+        List<User> userList = new ArrayList<>();
+
+        log.info("Connecting to the database to get all subjects");
+        try (Connection connection = ConnectionPool.getConnection()) {
+            log.info("Successful connection");
+            try (Statement statement = connection.createStatement()) {
+                ResultSet resultSet = statement.executeQuery(sqlQuery);
+                while (resultSet.next()) {
+                    User user = new User();
+                    user.setUserName(resultSet.getString("name"));
+                    user.setUserId(resultSet.getInt("id_User"));
+                    userList.add(user);
+                }
+            } catch (SQLException exception) {
+                log.error(exception.getLocalizedMessage());
+            }
+        } catch (SQLException exception) {
+            log.error(exception.getLocalizedMessage());
+        }
+        return userList;
+    }
+
+    public void deleteUser(Integer idUser) {
+
+        String sqlQuery = "DELETE FROM User WHERE id_User = ?";
+
+        log.info("Connecting to the database to delete question");
+        try (Connection connection = ConnectionPool.getConnection()) {
+            log.info("Successful connection");
+            try (PreparedStatement preparedStatement = connection.prepareStatement(sqlQuery)) {
+                preparedStatement.setInt(1, idUser);
+                preparedStatement.executeUpdate();
+            } catch (SQLException exception) {
+                log.error(exception.getLocalizedMessage());
             }
         } catch (SQLException exception) {
             log.error(exception.getLocalizedMessage());

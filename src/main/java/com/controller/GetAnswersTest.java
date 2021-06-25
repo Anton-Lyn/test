@@ -4,7 +4,6 @@ import com.DAO.DAOImpl.SubjectDAOImpl;
 import com.DAO.DAOImpl.TestDAOImpl;
 import com.DAO.SubjectDAO;
 import com.DAO.TestDAO;
-import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 
 import javax.servlet.annotation.WebServlet;
